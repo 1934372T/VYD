@@ -7,7 +7,7 @@
   - ES3，無線LAN，スポーツ観戦，就活しないとな
 - :octocat: [@UmemuraYamato](https://github.com/UmemuraYamato)：タイムキーパー 
   - ES3，論理式を自動で証明，ダンス，そろそろ就活始めないとヤバい
-- :octocat: [@trapedev](https://github.com/trapedev):情報共有
+- :octocat: [@trapedev](https://github.com/trapedev)：情報共有
   - ES3，bluetooth，旅行，就活ですわ
 - :octocat: [@jurakosugi](https://github.com/jurakosugi)：情報調査
   - ES5，ニュース記事のトピック分析，阪神タイガースが好き，ES書かないとな
