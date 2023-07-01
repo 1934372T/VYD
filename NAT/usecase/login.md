@@ -39,4 +39,4 @@
 
 **UI イメージ**
 
-![login](../image/login.png)
+![login](image/login.png)
