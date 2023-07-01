@@ -34,6 +34,6 @@
 
 以下のようなものと同等なものを想定．
 
-![ファイルアップローダー](../image/file_uploader.png)
+![ファイルアップローダー](image/file_uploader.png)
 
 参照元：https://yuvaleros.github.io/material-ui-dropzone/
