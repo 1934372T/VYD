@@ -2,7 +2,7 @@
 
 ## ユースケース図
 
-![usecase](../image/usecase.drawio.png)
+![usecase](image/usecase.drawio.png)
 
 ## ユースケース一覧
 
