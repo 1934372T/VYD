@@ -9,3 +9,9 @@
 
 ### シーケンス図
 ![シーケンス図](https://github.com/1934372T/VYD/assets/67819217/6d57c85b-daf2-4f41-a5fe-bf6b792b0997)
+
+## ユースケース：発表情報を閲覧する
+### ロバストネス図
+![ロバストネス図2 drawio](https://github.com/1934372T/VYD/assets/100588602/a6c1368a-941c-4b06-aad7-f4c61a7706f4)
+
+### シーケンス図
