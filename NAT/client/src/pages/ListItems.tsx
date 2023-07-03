@@ -14,6 +14,12 @@ const ListItems = () => {
         </ListItemIcon>
         <ListItemText primary={HOME} />
       </ListItemButton>
+      <ListItemButton href="/#/upload">
+        <ListItemIcon>
+          <DashboardIcon />
+        </ListItemIcon>
+        <ListItemText primary={"資料アップロード"} />
+      </ListItemButton>
     </>
   );
 };
