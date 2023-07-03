@@ -14,6 +14,7 @@ import { BaseContainer, BaseItem, Title } from "components/views/ui";
 import { FileUploader } from "components/utils/FileUploader";
 import { DatePickers } from "components/utils/DatePicker";
 import { MultiTextForm } from "components/utils/MultiTextForm";
+import { Button } from "@mui/material";
 
 const UploadPage = () => {
   const [open] = useState<boolean>(false);
@@ -32,7 +33,7 @@ const UploadPage = () => {
       <BaseContainer>
         <BaseItem xs={12}>
           <Title title={"基本情報"} />
-          <Grid container spacing={3}>
+          <Grid container spacing={3} sx={{ mb: 2 }}>
             <Grid item xs={6}>
               <Typography>題目</Typography>
               <TextField
@@ -51,10 +52,20 @@ const UploadPage = () => {
               <MultiTextForm />
             </Grid>
           </Grid>
-        </BaseItem>
-        <BaseItem xs={12}>
           <Title title={"資料"} />
           <FileUploader />
+          <Grid container spacing={2} sx={{ mt: 1 }} justifyContent="flex-end">
+            <Grid item>
+              <Button variant="contained" color="secondary">
+                登録
+              </Button>
+            </Grid>
+            <Grid item>
+              <Button variant="contained" color="secondary">
+                キャンセル
+              </Button>
+            </Grid>
+          </Grid>
         </BaseItem>
       </BaseContainer>
       <Backdrop open={open}>

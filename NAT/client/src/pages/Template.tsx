@@ -13,22 +13,12 @@ import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
-import Paper from "@mui/material/Paper";
-import TableContainer from "@mui/material/TableContainer";
-import TableBody from "@mui/material/TableBody";
-import TablePagination from "@mui/material/TablePagination";
-import Table from "@mui/material/Table";
-import TableCell from "@mui/material/TableCell";
-import TableRow from "@mui/material/TableRow";
+
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 
 // ** UI Import
-import {
-  EnhancedTableHead,
-  EnhancedTableHeadType,
-  HyperLink,
-} from "components/views/ui";
+import { HyperLink } from "components/views/ui";
 
 // ** Views Import
 import ListItems from "pages/ListItems";
@@ -233,109 +223,3 @@ export default function Template(props: TemplateProps) {
     </ThemeProvider>
   );
 }
-
-interface GenericTableProps {
-  headCells: EnhancedTableHeadType[];
-  rows: any[];
-  ignoreIndex: number; // どのインデックス以降で表示を無視するか
-  rowColorJuder?: (v: any) => string;
-}
-
-export const GenericTable = (props: GenericTableProps) => {
-  const { headCells, rows, ignoreIndex, rowColorJuder } = props;
-  const [page, setPage] = useState<number>(0);
-  const [rowsPerPage, setRowsPerPage] = useState<number>(10);
-  const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0; // Avoid a layout jump when reaching the last page with empty rows.
-  // @ts-ignore
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-  // @ts-ignore
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-  return (
-    <>
-      <Box
-        sx={{
-          width: "100%",
-        }}
-      >
-        <Paper sx={{ width: "100%", mb: 2 }}>
-          <TableContainer>
-            <Table
-              sx={{ width: "flex" }}
-              aria-labelledby="tableTitle"
-              size={"medium"}
-            >
-              <EnhancedTableHead headCells={headCells} />
-              <TableBody>
-                {rows
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((row, index) => {
-                    const labelId = `enhanced-table-checkbox-${index}`;
-                    return (
-                      <>
-                        <TableRow
-                          tabIndex={-1}
-                          key={index}
-                          sx={{
-                            // @ts-ignore
-                            backgroundColor: rowColorJuder
-                              ? rowColorJuder(row)
-                              : "white",
-                            height: (window.innerHeight * 0.8) / 12,
-                          }}
-                        >
-                          {Object.values(row).map((v, i) => {
-                            if (i >= ignoreIndex) {
-                              return null;
-                            } else {
-                              return (
-                                <>
-                                  <TableCell
-                                    component="th"
-                                    key={labelId + String(v)}
-                                    id={labelId}
-                                    scope="row"
-                                    padding="none"
-                                    align="center"
-                                  >
-                                    {<>{v}</>}
-                                  </TableCell>
-                                </>
-                              );
-                            }
-                          })}
-                        </TableRow>
-                      </>
-                    );
-                  })}
-                {emptyRows > 0 && (
-                  <TableRow
-                    style={{
-                      height: ((window.innerHeight * 0.8) / 12) * emptyRows,
-                    }}
-                  >
-                    <TableCell colSpan={6} />
-                  </TableRow>
-                )}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <TablePagination
-            rowsPerPageOptions={[10]}
-            component="div"
-            count={rows.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
-        </Paper>
-      </Box>
-    </>
-  );
-};
