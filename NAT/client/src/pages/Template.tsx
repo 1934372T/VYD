@@ -1,5 +1,5 @@
 // ** React Import
-import React, { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 
 // ** MUI Import
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
@@ -115,7 +115,7 @@ const Footer = styled("footer")(({ theme }) => ({
 }));
 
 interface TemplateProps {
-  children: React.ReactNode;
+  children: ReactNode;
   name: string;
 }
 

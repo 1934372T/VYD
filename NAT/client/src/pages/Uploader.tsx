@@ -13,6 +13,7 @@ import Template from "pages/Template";
 import { BaseContainer, BaseItem, Title } from "components/views/ui";
 import { FileUploader } from "components/utils/FileUploader";
 import { DatePickers } from "components/utils/DatePicker";
+import { MultiTextForm } from "components/utils/MultiTextForm";
 
 const UploadPage = () => {
   const [open] = useState<boolean>(false);
@@ -44,6 +45,10 @@ const UploadPage = () => {
             <Grid item xs={6}>
               <Typography>発表日時</Typography>
               <DatePickers onChangeDate={() => {}} />
+            </Grid>
+            <Grid item xs={12}>
+              <Typography>備考</Typography>
+              <MultiTextForm />
             </Grid>
           </Grid>
         </BaseItem>
