@@ -34,4 +34,8 @@ public class File {
     public String getFieldId() {
         return this.fileId;
     }
+
+    public String getStudentId() {
+        return this.studentId;
+    }
 }
