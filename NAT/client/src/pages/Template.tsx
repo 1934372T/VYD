@@ -125,7 +125,10 @@ export default function Template(props: TemplateProps) {
   const toggleDrawer = () => {
     setOpen(!open);
   };
-  useEffect(() => {}, [props]);
+  useEffect(() => {
+    console.log("check token");
+    // setIsValidToken(true);
+  }, []);
 
   return (
     <ThemeProvider theme={mdTheme}>
