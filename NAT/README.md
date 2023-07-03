@@ -4,4 +4,4 @@
 
 ## [ユースケース](usecase/README.md)
 
-## [分析図](figure/README.md)
+## [分析図](object_oriented_analysis/README.md)
