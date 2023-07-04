@@ -1,25 +1,25 @@
 package com.nat.nat.api.controller;
 
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@SpringBootApplication
+@RestController
+@RequestMapping("/api/v1/file")
 public class FileController {
 
-    private static final String PREFIX = "/file";
-
-    @PostMapping(PREFIX)
+    @PostMapping("")
     public String createNewFile() {
         return "hello";
     }
 
-    @GetMapping(PREFIX)
+    @GetMapping("")
     public void getFileContentsById() {}
 
-    @GetMapping(PREFIX+"/data")
-    public void getFileDataById() {}
+    // @GetMapping("/data")
+    // public void getFileDataById() {}
 
-    @GetMapping(PREFIX+"/data")
-    public void getFileDataList() {}
+    // @GetMapping("/data")
+    // public void getFileDataList() {}
 }
