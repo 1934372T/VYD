@@ -1,0 +1,20 @@
+FROM openjdk:17-jdk
+
+WORKDIR /app
+
+COPY gradlew .
+COPY gradle gradle
+COPY build.gradle .
+COPY settings.gradle .
+COPY src src
+
+# Echo the server.port setting into the application.properties file
+RUN echo "server.port=55551" >> src/main/resources/application.properties
+
+RUN microdnf install findutils
+
+RUN ./gradlew build
+
+EXPOSE 55551
+
+ENTRYPOINT ["java","-jar","build/libs/server-0.0.1-SNAPSHOT.jar"]
