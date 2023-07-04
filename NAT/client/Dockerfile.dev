@@ -1,0 +1,16 @@
+FROM node:16
+
+WORKDIR /app
+
+COPY package*.json yarn.lock ./
+RUN yarn install
+
+COPY . .
+
+ENV NODE_ENV=development
+ENV REACT_APP_HOST=http://127.0.0.1:55551/api/v1
+ENV PORT=3331
+
+EXPOSE 3331
+
+CMD [ "yarn", "start" ]
