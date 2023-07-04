@@ -52,8 +52,18 @@ const UploadPage = () => {
               <MultiTextForm />
             </Grid>
           </Grid>
-          <Title title={"資料"} />
-          <FileUploader />
+          <Title title={"論文"} />
+          <FileUploader
+            title={
+              "アップロードしたい論文（pdf）をドラッグ&ドロップしてください．"
+            }
+          />
+          <Title title={"発表スライド"} />
+          <FileUploader
+            title={
+              "アップロードしたい発表スライド（pdf or pptx）をドラッグ&ドロップしてください．"
+            }
+          />
           <Grid container spacing={2} sx={{ mt: 1 }} justifyContent="flex-end">
             <Grid item>
               <Button variant="contained" color="secondary">

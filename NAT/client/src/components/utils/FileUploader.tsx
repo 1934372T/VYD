@@ -1,4 +1,3 @@
-// ** Import React
 import { useState, useCallback } from "react";
 
 import Grid from "@mui/material/Grid";
@@ -7,10 +6,14 @@ import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 
-// ** Import utils
 import { useDropzone } from "react-dropzone";
 
-export const FileUploader = () => {
+interface FileUploaderProps {
+  title: string;
+}
+
+export const FileUploader = (props: FileUploaderProps) => {
+  const { title } = props;
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
 
@@ -19,7 +22,13 @@ export const FileUploader = () => {
     setPreview(URL.createObjectURL(acceptedFiles[0]));
   }, []);
 
-  const { getRootProps, getInputProps } = useDropzone({ onDrop });
+  const { getRootProps, getInputProps } = useDropzone({
+    onDrop,
+    accept: {
+      "application/pdf": [],
+      "application/vnd.openxmlformats-officedocument.presentationml.presentation": [],
+    },
+  });
 
   const handleFileDelete = () => {
     setFile(null);
@@ -29,30 +38,37 @@ export const FileUploader = () => {
   return (
     <Grid container spacing={3} sx={{ mb: 1 }}>
       {file ? (
-        <>
-          <Grid item xs={6}>
-            {file && <Typography>選択されたファイル: {file.name}</Typography>}
-            {preview && (
-              <img
-                src={preview}
-                alt="preview"
-                style={{
-                  width: "100px", // 幅を指定
-                }}
-              />
-            )}
+        <Grid item xs={12}>
+          <Grid container spacing={3} sx={{ mb: 3 }}>
+            <Grid item xs={6}>
+              <Typography>選択されたファイル: {file.name}</Typography>
+            </Grid>
+            <Grid item xs={6}>
+              <Button
+                variant="contained"
+                color={"secondary"}
+                onClick={handleFileDelete}
+              >
+                ファイルを削除する
+              </Button>
+            </Grid>
           </Grid>
-          <Grid item xs={6}>
-            <Button
-              variant="contained"
-              color={"secondary"}
-              onClick={handleFileDelete}
-              sx={{ mt: 3 }}
-            >
-              ファイルを削除する
-            </Button>
-          </Grid>
-        </>
+
+          {file.type ===
+          "application/vnd.openxmlformats-officedocument.presentationml.presentation" ? (
+            <Typography color="error">プレビューは利用できません</Typography>
+          ) : (
+            preview && (
+              <object
+                data={preview}
+                type="application/pdf"
+                style={{ width: "100%", height: "500px" }}
+              >
+                PDFプレビューが表示できません
+              </object>
+            )
+          )}
+        </Grid>
       ) : (
         <Grid item xs={12}>
           <div
@@ -76,9 +92,7 @@ export const FileUploader = () => {
               }}
             >
               <CardContent>
-                <Typography align="center">
-                  アップロードしたい資料をここにドラッグ＆ドロップしてください．
-                </Typography>
+                <Typography align="center">{title}</Typography>
               </CardContent>
             </Card>
           </div>
