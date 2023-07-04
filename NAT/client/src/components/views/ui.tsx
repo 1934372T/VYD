@@ -175,11 +175,12 @@ interface GenericTableProps {
   headCells: EnhancedTableHeadType[];
   rows: any[];
   ignoreIndex: number; // どのインデックス以降で表示を無視するか
-  rowColorJuder?: (v: any) => string;
+  customModal?: ReactNode;
+  onClickTableRow?: (v: any) => void;
 }
 
 export const GenericTable = (props: GenericTableProps) => {
-  const { headCells, rows, ignoreIndex, rowColorJuder } = props;
+  const { headCells, rows, ignoreIndex, customModal, onClickTableRow } = props;
   const [page, setPage] = useState<number>(0);
   const [rowsPerPage, setRowsPerPage] = useState<number>(10);
   const emptyRows =
@@ -194,12 +195,8 @@ export const GenericTable = (props: GenericTableProps) => {
     setPage(0);
   };
   return (
-    <Box
-      sx={{
-        width: "100%",
-      }}
-    >
-      <Paper sx={{ width: "100%", mb: 2 }}>
+    <Box sx={{ width: "100%" }}>
+      <Paper sx={{ width: "100%" }}>
         <TableContainer>
           <Table
             sx={{ width: "flex" }}
@@ -213,40 +210,40 @@ export const GenericTable = (props: GenericTableProps) => {
                 .map((row, index) => {
                   const labelId = `enhanced-table-checkbox-${index}`;
                   return (
-                    <>
-                      <TableRow
-                        tabIndex={-1}
-                        key={index}
-                        sx={{
-                          // @ts-ignore
-                          backgroundColor: rowColorJuder
-                            ? rowColorJuder(row)
-                            : "white",
-                          height: (window.innerHeight * 0.8) / 12,
-                        }}
-                      >
-                        {Object.values(row).map((v, i) => {
-                          if (i >= ignoreIndex) {
-                            return null;
-                          } else {
-                            return (
-                              <>
-                                <TableCell
-                                  component="th"
-                                  key={labelId + String(v)}
-                                  id={labelId}
-                                  scope="row"
-                                  padding="none"
-                                  align="center"
-                                >
-                                  {<>{v}</>}
-                                </TableCell>
-                              </>
-                            );
-                          }
-                        })}
-                      </TableRow>
-                    </>
+                    <TableRow
+                      tabIndex={-1}
+                      key={index}
+                      hover
+                      sx={{
+                        backgroundColor: "white",
+                        height: (window.innerHeight * 0.8) / 12,
+                      }}
+                      onClick={
+                        // eslint-disable-next-line @typescript-eslint/no-empty-function
+                        onClickTableRow ? () => onClickTableRow(row) : () => {}
+                      }
+                    >
+                      {Object.values(row).map((v, i) => {
+                        if (i >= ignoreIndex) {
+                          return null;
+                        } else {
+                          return (
+                            <>
+                              <TableCell
+                                component="th"
+                                key={labelId + String(v)}
+                                id={labelId}
+                                scope="row"
+                                padding="none"
+                                align="center"
+                              >
+                                {<>{v}</>}
+                              </TableCell>
+                            </>
+                          );
+                        }
+                      })}
+                    </TableRow>
                   );
                 })}
               {emptyRows > 0 && (
@@ -259,6 +256,7 @@ export const GenericTable = (props: GenericTableProps) => {
                 </TableRow>
               )}
             </TableBody>
+            {customModal}
           </Table>
         </TableContainer>
         <TablePagination

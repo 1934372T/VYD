@@ -19,7 +19,10 @@ import {
   Select,
   SelectChangeEvent,
 } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
+
+import "mock/axios";
 
 const header: EnhancedTableHeadType[] = [
   {
@@ -46,6 +49,7 @@ const ListPage = () => {
   const [degree, setDegree] = useState<string | undefined>("");
   const [year, setYear] = useState<number | undefined>(2022);
   const [listTitle, setListTitle] = useState<string | undefined>(undefined);
+  const [listData, setListData] = useState<any[]>([]);
 
   const handleChangeDegree = (event: SelectChangeEvent) => {
     setDegree(event.target.value as string);
@@ -56,6 +60,19 @@ const ListPage = () => {
     setYear(Number(event.target.value));
     setListTitle((event.target.value as string) + "年度 " + degree);
   };
+
+  useEffect(() => {
+    axios
+      .get("/materials")
+      .then((res) => {
+        const { data } = res;
+        console.log(data);
+        setListData(listDataBuilder(data));
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }, []);
 
   return (
     <Template name="発表資料一覧">
@@ -100,11 +117,23 @@ const ListPage = () => {
         </BaseItem>
         <BaseItem xs={12}>
           {listTitle !== undefined ? <Title title={listTitle} /> : <></>}
-          <GenericTable headCells={header} rows={[]} ignoreIndex={1000} />
+          <GenericTable headCells={header} rows={listData} ignoreIndex={1000} />
         </BaseItem>
       </BaseContainer>
     </Template>
   );
+};
+
+const listDataBuilder = (data: any[]) => {
+  const res: any[] = [];
+  for (let i = 0; i < data.length; i++) {
+    res.push({
+      title: data[i].title,
+      name: data[i].name,
+      date: data[i].date,
+    });
+  }
+  return res;
 };
 
 export default ListPage;

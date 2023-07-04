@@ -70,6 +70,9 @@ export const FileUploader = () => {
                 backgroundColor: "gainsboro",
                 width: "100%",
                 height: "100px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
               }}
             >
               <CardContent>
