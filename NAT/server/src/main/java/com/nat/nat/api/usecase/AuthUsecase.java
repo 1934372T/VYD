@@ -4,10 +4,17 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.nat.nat.api.repository.interfaces.StudentRepositoryInterfaces;
 import com.nat.nat.api.usecase.interfaces.AuthUsecaseInterfaces;
 
 @Service
 public class AuthUsecase implements AuthUsecaseInterfaces {
+
+    private final StudentRepositoryInterfaces studentRepo;
+
+    public AuthUsecase(StudentRepositoryInterfaces studentRepo) {
+        this.studentRepo = studentRepo;
+    }
 
     @Override
     public boolean isValidTokenUsecase(List<String> authHeaders) {

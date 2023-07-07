@@ -10,7 +10,7 @@ COPY src src
 COPY wait-for-it.sh . 
 
 # Echo the server.port setting into the application.properties file
-RUN echo "server.port=55551" >> src/main/resources/application.properties
+# RUN echo "server.port=55551" >> src/main/resources/application.properties
 
 RUN microdnf install -y nc findutils
 
