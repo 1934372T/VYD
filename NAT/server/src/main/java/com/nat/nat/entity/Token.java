@@ -1,4 +1,4 @@
-package com.nat.nat.domain;
+package com.nat.nat.entity;
 
 import java.util.Date;
 

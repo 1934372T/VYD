@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.nat.nat.api.repository.interfaces.StudentRepositoryInterfaces;
-import com.nat.nat.domain.Student;
+import com.nat.nat.entity.Student;
 
 import jakarta.persistence.EntityManager;
 
