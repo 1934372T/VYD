@@ -13,11 +13,18 @@ import TableContainer from "@mui/material/TableContainer";
 import TableBody from "@mui/material/TableBody";
 import Table from "@mui/material/Table";
 import {
+  Backdrop,
   Box,
+  Button,
   Card,
   CardActionArea,
   CardContent,
+  CircularProgress,
+  CssBaseline,
+  Link,
   TablePagination,
+  ThemeProvider,
+  createTheme,
 } from "@mui/material";
 import { GenericListsType } from "models/types";
 
@@ -270,5 +277,109 @@ export const GenericTable = (props: GenericTableProps) => {
         />
       </Paper>
     </Box>
+  );
+};
+
+interface BackdropProps {
+  open: boolean;
+}
+
+export const BaseBackdrop = (props: BackdropProps) => {
+  const { open } = props;
+  return (
+    <>
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={open}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
+    </>
+  );
+};
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#00008b",
+    },
+    secondary: {
+      // This is green.A700 as hex.
+      main: "#87ceeb",
+    },
+  },
+});
+
+interface BaseFormProps {
+  formTitle: string;
+  buttonTitle: string;
+  handleSubmit: (v?: any) => void;
+  children?: ReactNode;
+  mode: string;
+}
+
+export const BaseForm = (props: BaseFormProps) => {
+  const { formTitle, buttonTitle, handleSubmit, children, mode } = props;
+  return (
+    <ThemeProvider theme={theme}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Typography component="h1" variant="h5">
+            {formTitle}
+          </Typography>
+          <Box
+            component="form"
+            onSubmit={handleSubmit}
+            noValidate
+            sx={{ mt: 1 }}
+          >
+            {children}
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              {buttonTitle}
+            </Button>
+            {mode === "signin" ? (
+              <>
+                <Grid container>
+                  <Grid item>
+                    <Link href="/app/signup" variant="body2">
+                      {"アカウントの新規作成はこちら"}
+                    </Link>
+                  </Grid>
+                </Grid>
+              </>
+            ) : (
+              <>
+                {mode === "signup" ? (
+                  <>
+                    <Grid container>
+                      <Grid item>
+                        <Link href="/app/signin" variant="body2">
+                          {"アカウントを既にお持ちですか？"}
+                        </Link>
+                      </Grid>
+                    </Grid>
+                  </>
+                ) : (
+                  <></>
+                )}
+              </>
+            )}
+          </Box>
+        </Box>
+      </Container>
+    </ThemeProvider>
   );
 };

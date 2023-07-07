@@ -22,8 +22,6 @@ import {
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-import "mock/axios";
-
 const header: EnhancedTableHeadType[] = [
   {
     id: "title",

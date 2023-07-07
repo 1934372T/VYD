@@ -24,6 +24,8 @@ import { HyperLink } from "components/views/ui";
 import ListItems from "pages/ListItems";
 import { Container } from "@mui/material";
 import { GitHub } from "@mui/icons-material";
+import { $axios } from "configs/axios";
+import { AxiosError, AxiosResponse } from "axios";
 
 const drawerWidth = 240;
 
@@ -115,12 +117,23 @@ export default function Template(props: TemplateProps) {
   const toggleDrawer = () => {
     setOpen(!open);
   };
+  const [show, setShow] = useState<boolean>(false);
   useEffect(() => {
-    console.log("check token");
-    // setIsValidToken(true);
+    $axios()
+      .post("/auth/is-valid-token")
+      .then((res: AxiosResponse) => {
+        if (res.status !== 200) {
+          window.location.replace("/#/signin");
+        } else {
+          setShow(true);
+        }
+      })
+      .catch((e: AxiosError) => {
+        window.location.replace("/#/signin");
+      });
   }, []);
 
-  return (
+  return show ? (
     <ThemeProvider theme={mdTheme}>
       {/* @ts-ignore */}
       <Box sx={{ display: "flex" }}>
@@ -221,5 +234,7 @@ export default function Template(props: TemplateProps) {
         </Footer>
       </Box>
     </ThemeProvider>
+  ) : (
+    <></>
   );
 }

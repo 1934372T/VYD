@@ -3,6 +3,8 @@ package com.nat.nat.api.controller;
 import java.util.List;
 
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/auth")
 public class AuthController {
     @PostMapping("/is-valid-token")
-    public void isValidToken(@RequestHeader HttpHeaders headers) {
+    public ResponseEntity<String> isValidToken(@RequestHeader HttpHeaders headers) {
         List<String> authHeaders = headers.get("Authorization");
     
         if (authHeaders != null && authHeaders.size() > 0) {
@@ -24,12 +26,17 @@ public class AuthController {
                 // Your logic with the token goes here...
 
                 System.out.println(token);
-            } else {
-                System.out.println("Bearer token is not present in the Authorization header.");
-            }
-        } else {
-            System.out.println("Authorization header is missing.");
-        }
+
+                return ResponseEntity.ok("Status OK");
+            } 
+            // else {
+            //     System.out.println("Bearer token is not present in the Authorization header.");
+            // }
+        } 
+        // else {
+        //     System.out.println("Authorization header is missing.");
+        // }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
     @PostMapping("/login")
