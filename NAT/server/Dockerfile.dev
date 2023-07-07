@@ -7,14 +7,15 @@ COPY gradle gradle
 COPY build.gradle .
 COPY settings.gradle .
 COPY src src
+COPY wait-for-it.sh . 
 
 # Echo the server.port setting into the application.properties file
 RUN echo "server.port=55551" >> src/main/resources/application.properties
 
-RUN microdnf install findutils
+RUN microdnf install -y nc findutils
 
 RUN ./gradlew build
 
 EXPOSE 55551
 
-ENTRYPOINT ["java","-jar","build/libs/server-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["/app/wait-for-it.sh", "nat-dev-db:5433", "--", "java", "-jar","build/libs/server-0.0.1-SNAPSHOT.jar"]

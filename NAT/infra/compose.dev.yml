@@ -1,0 +1,41 @@
+version: '3.9'
+
+services:
+  nat-dev-server:
+    container_name: nat-dev-server
+    build:
+      context: ../server
+      dockerfile: Dockerfile.dev
+    ports:
+      - "55551:55551"
+    
+  nat-dev-client:
+    container_name: nat-dev-client
+    build:
+      context: ../client
+      dockerfile: Dockerfile.dev
+    ports:
+      - '3331:3331'
+    volumes:
+      - ../client:/app
+      - /app/node_modules
+    command: ["yarn", "start"]
+
+  nat-dev-db:
+    container_name: nat-dev-db
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=s3-dev
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_DB=nat
+      - TZ=Asia/Tokyo
+    volumes:
+      - ~/VYD/NAT/db/dev:/var/lib/postgresql/data
+    deploy:
+      resources:
+        limits:
+          cpus: "2" # 2 CPU cores
+          memory: 2048M # 2 GB of memory
+    ports:
+      - "5433:5433"
+    command: -p 5433
