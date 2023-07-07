@@ -12,6 +12,6 @@ COPY wait-for-it.sh .
 RUN microdnf install -y nc findutils
 RUN ./gradlew build
 
-EXPOSE 55551
+EXPOSE 55550
 
-ENTRYPOINT ["/app/wait-for-it.sh", "nat-dev-db:5433", "--", "java", "-jar","build/libs/server-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["/app/wait-for-it.sh", "nat-prod-db:5432", "--", "java", "-jar","build/libs/server-0.0.1-SNAPSHOT.jar"]

@@ -1,0 +1,39 @@
+version: '3.9'
+
+services:
+  nat-prod-infra:
+    container_name: nat-prod-infra
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - .default.conf:/etc/nginx/conf.d/default.conf
+      - ../client/build:/usr/share/nginx/release
+    depends_on:
+      - nat-prod-server
+  
+  nat-prod-server:
+    container_name: nat-prod-server
+    build:
+      context: ../server
+      dockerfile: Dockerfile.prod
+    ports:
+      - "55550:55550"
+    
+  nat-prod-db:
+    container_name: nat-prod-db
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=s3-prod
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_DB=nat
+      - TZ=Asia/Tokyo
+    volumes:
+      - ~/VYD/NAT/db/prod:/var/lib/postgresql/data
+    deploy:
+      resources:
+        limits:
+          cpus: "2" # 2 CPU cores
+          memory: 2048M # 2 GB of memory
+    ports:
+      - "5432:5432"
