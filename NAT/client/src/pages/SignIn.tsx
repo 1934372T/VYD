@@ -30,7 +30,6 @@ const SignInPage = () => {
         const { data } = res;
         if (res.status === 200) {
           setOpen(false);
-          console.log(data);
           window.localStorage.setItem(keys.accessToken, String(data));
           router("/#/");
         } else {
