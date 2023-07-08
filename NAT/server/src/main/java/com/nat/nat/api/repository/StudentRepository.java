@@ -2,6 +2,7 @@ package com.nat.nat.api.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nat.nat.api.repository.interfaces.StudentRepositoryInterfaces;
 import com.nat.nat.entity.Student;
@@ -15,6 +16,7 @@ public class StudentRepository implements StudentRepositoryInterfaces {
     private EntityManager entityManager;
 
     @Override
+    @Transactional
     public void create(Student student) {
         entityManager.persist(student);
     }

@@ -26,7 +26,7 @@ const SignInPage = () => {
     setOpen(true);
     const data = new FormData(event.currentTarget);
     axios
-      .post(HOST_URL + "/api/v1/signin", {
+      .post(HOST_URL + "/api/v1/auth/signin", {
         student_id: data.get("student_id"),
         password: data.get("password"),
       })

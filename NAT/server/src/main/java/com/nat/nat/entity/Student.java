@@ -1,6 +1,8 @@
 package com.nat.nat.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -15,24 +17,28 @@ public class Student {
     private int id;
     private String firstName; // 名前
     private String lastName; // 名字
-    private String grade; // 学年
+    @Enumerated(EnumType.STRING)
+    private Grade grade; // 学年
     private String studentId; // 学籍番号
+    private String password;
 
     protected Student() {}
 
-    public Student(String firstName, String lastName, String grade, String studentId) {
+    public Student(String firstName, String lastName, Grade grade, String studentId, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.grade = grade;
         this.studentId = studentId;
+        this.password = password;
     }
 
-    public Student(int id, String firstName, String lastName, String grade, String studentId) {
+    public Student(int id, String firstName, String lastName, Grade grade, String studentId, String password) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.grade = grade;
         this.studentId = studentId;
+        this.password = password;
     }
 
     public String getFullName() {
@@ -47,11 +53,16 @@ public class Student {
      * DO NOT SUPPORT ID_SETTER
      */
 
-    public String getGrade() {
+    public Grade getGrade() {
         return this.grade;
     }
 
     public String getStudnetId() {
         return this.studentId;
     }
+
+    public String getPassword() {
+        return this.password;
+    }
 }
+

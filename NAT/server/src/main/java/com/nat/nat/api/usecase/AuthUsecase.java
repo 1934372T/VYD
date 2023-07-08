@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 
 import com.nat.nat.api.repository.interfaces.StudentRepositoryInterfaces;
 import com.nat.nat.api.usecase.interfaces.AuthUsecaseInterfaces;
+import com.nat.nat.entity.Grade;
+import com.nat.nat.entity.Student;
 
 @Service
 public class AuthUsecase implements AuthUsecaseInterfaces {
@@ -32,6 +34,13 @@ public class AuthUsecase implements AuthUsecaseInterfaces {
             } 
         } 
         return false;
+    }
+
+    @Override
+    public void signUp(String studentId, String password, String firstName, String lastName, Grade grade) {
+        Student newStudent = new Student(firstName, lastName, grade, studentId, password);
+        System.out.println(newStudent);
+        studentRepo.create(newStudent);
     }
 
 }

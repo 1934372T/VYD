@@ -354,7 +354,7 @@ export const BaseForm = (props: BaseFormProps) => {
               <>
                 <Grid container>
                   <Grid item>
-                    <Link href="/app/signup" variant="body2">
+                    <Link href="/#/signup" variant="body2">
                       {"アカウントの新規作成はこちら"}
                     </Link>
                   </Grid>
@@ -366,7 +366,7 @@ export const BaseForm = (props: BaseFormProps) => {
                   <>
                     <Grid container>
                       <Grid item>
-                        <Link href="/app/signin" variant="body2">
+                        <Link href="/#/signin" variant="body2">
                           {"アカウントを既にお持ちですか？"}
                         </Link>
                       </Grid>
