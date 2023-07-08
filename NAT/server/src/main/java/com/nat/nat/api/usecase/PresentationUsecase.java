@@ -1,7 +1,6 @@
 package com.nat.nat.api.usecase;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -20,6 +19,7 @@ import com.nat.nat.entity.Slide;
 import com.nat.nat.entity.Student;
 import com.nat.nat.entity.Token;
 import com.nat.nat.lib.auth.TokenManager;
+import com.nat.nat.lib.utils.StringOperator;
 
 @Service
 public class PresentationUsecase implements PresentationUsecaseInterfaces {
@@ -36,7 +36,8 @@ public class PresentationUsecase implements PresentationUsecaseInterfaces {
     }
 
     @Override
-    public ResponseEntity<?> create(List<String> headers, MultipartFile paper, MultipartFile slide, String title, LocalDateTime date, String note) {
+    public ResponseEntity<?> create(List<String> headers, MultipartFile paper, MultipartFile slide, String title, String date, String note) {
+        StringOperator so = new StringOperator();
         TokenManager tm = new TokenManager("example");
         String tk = tm.getTokenFromHeaders(headers);
         tm.setToken(tk);
@@ -56,7 +57,7 @@ public class PresentationUsecase implements PresentationUsecaseInterfaces {
 
             Student student = this.studentRepo.getByStudentId(studentId);
 
-            Presentation newPresentation = new Presentation(student.getId(), title, date, note);
+            Presentation newPresentation = new Presentation(student.getId(), title, so.convertIsoToLocalDateTime(date), note);
             newPresentation.setPaperId(createdPaper.getId());
             newPresentation.setSlideId(createdSlide.getId());
             Presentation createdPresentation = this.presentationRepo.create(newPresentation);

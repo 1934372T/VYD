@@ -3,6 +3,9 @@ package com.nat.nat.lib.utils;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 /**
  * 文字列操作に関する色々を定義している．
@@ -33,5 +36,10 @@ public class StringOperator {
     public boolean comparePasswords(String password, String hashedPassword) {
         password = sha256Hash(password);
         return password.equals(hashedPassword);
+    }
+
+    public LocalDateTime convertIsoToLocalDateTime(String date) {
+        Instant instant = Instant.parse(date);
+        return LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
     }
 }

@@ -1,8 +1,5 @@
 package com.nat.nat.api.controller;
 
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +28,6 @@ public class PresentationController {
     @PostMapping("/upload")
     public ResponseEntity<?> create(@RequestHeader HttpHeaders headers, @RequestParam("paper") MultipartFile paperFile, @RequestParam("slide") MultipartFile slideFile, @RequestParam("title") String title, @RequestParam("date") String date, @RequestParam("note") String note) {
         List<String> authHeaders = headers.get("Authorization");
-        Instant instant = Instant.parse(date);
-        LocalDateTime ldt = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
-        return this.usecase.create(authHeaders, paperFile, slideFile, title, ldt, note);
+        return this.usecase.create(authHeaders, paperFile, slideFile, title, date, note);
     }
 }
