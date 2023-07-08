@@ -30,6 +30,13 @@ public class Presentation {
 
     protected Presentation() {}
 
+    public Presentation(int studentId, String title, LocalDateTime date, String note) {
+        this.studentId = studentId;
+        this.title = title;
+        this.date = date;
+        this.note = note;
+    }
+
     /*
      * =====================================================
      */
@@ -71,8 +78,16 @@ public class Presentation {
         return this.studentId;
     }
 
+    public void setPaperId(int paperId) {
+        this.paperId = paperId;
+    }
+
     public int getPaperId() {
         return this.paperId;
+    }
+
+    public void setSlideId(int slideId) {
+        this.slideId = slideId;
     }
 
     public int getSlideId() {

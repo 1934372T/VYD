@@ -34,6 +34,11 @@ public class Paper {
         this.id = id;
     }
 
+    public Paper(String name, byte[] body) {
+        this.name = name;
+        this.body = body;
+    }
+
     /*
      * =====================================================
      */

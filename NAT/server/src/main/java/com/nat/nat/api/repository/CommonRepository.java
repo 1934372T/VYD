@@ -17,8 +17,10 @@ public abstract class CommonRepository<T> {
     }
 
     @Transactional
-    public void create(T entity) {
+    public T create(T entity) {
         entityManager.persist(entity);
+        entityManager.flush();
+        return entity;
     }
 
     public T getById(Long id) {

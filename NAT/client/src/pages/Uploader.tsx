@@ -17,18 +17,22 @@ import { MultiTextForm } from "components/utils/MultiTextForm";
 import { Button } from "@mui/material";
 import { $axios } from "configs/axios";
 import { AxiosError, AxiosResponse } from "axios";
+import { useNavigate } from "react-router-dom";
 
 const UploadPage = () => {
   const [open, setOpen] = useState<boolean>(false);
-  const [url, setUrl] = useState<string>("");
+  const [title, setTitle] = useState<string>("");
+  const [note, setNote] = useState<string>("");
+  const [date, setDate] = useState<string | undefined>();
   const [paperFile, setPaperFile] = useState<File | null>(null);
   const [slideFile, setSlideFile] = useState<File | null>(null);
 
-  const handleChangeInputData = (e: ChangeEvent<HTMLInputElement>) => {
+  const router = useNavigate();
+
+  const handleChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     if (e.target.value) {
-      setUrl(e.target.value);
-      console.log(url);
+      setTitle(e.target.value);
     }
   };
 
@@ -37,6 +41,9 @@ const UploadPage = () => {
     setOpen(true);
 
     const formData = new FormData();
+    formData.append("title", title);
+    formData.append("note", note);
+    formData.append("date", date!);
     if (paperFile) {
       console.log("paper");
       formData.append("paper", paperFile);
@@ -49,7 +56,7 @@ const UploadPage = () => {
     $axios({ multipart: true })
       .post("presentation/upload", formData)
       .then((res: AxiosResponse) => {
-        console.log(res);
+        router("/list");
       })
       .catch((e: AxiosError) => {
         console.log(e);
@@ -68,16 +75,16 @@ const UploadPage = () => {
                 fullWidth
                 id="fullWidth"
                 size="small"
-                onChange={handleChangeInputData}
+                onChange={handleChangeTitle}
               />
             </Grid>
             <Grid item xs={6}>
               <Typography>発表日時</Typography>
-              <DatePickers onChangeDate={() => {}} />
+              <DatePickers onChangeDate={setDate} />
             </Grid>
             <Grid item xs={12}>
               <Typography>備考</Typography>
-              <MultiTextForm />
+              <MultiTextForm onChange={setNote} />
             </Grid>
           </Grid>
           <Title title={"論文"} />

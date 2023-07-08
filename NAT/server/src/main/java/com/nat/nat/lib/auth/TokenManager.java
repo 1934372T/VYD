@@ -1,6 +1,7 @@
 package com.nat.nat.lib.auth;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import com.auth0.jwt.JWT;
@@ -17,6 +18,10 @@ public class TokenManager {
     private String token;
     private static final Long EXPIRATION_TIME = 1000L * 60L * 10L;
 
+    public TokenManager(String secretKey) {
+        this.secretKey = secretKey;
+    }
+
     public TokenManager(String secretKey, String token) {
         this.secretKey = secretKey;
         this.token = token;
@@ -26,6 +31,22 @@ public class TokenManager {
         this.secretKey = secretKey;
         this.userId = userId;
         this.permission = permission;
+    }
+
+    public String getTokenFromHeaders(List<String> authHeaders) {
+        String tk = "";
+        if (authHeaders != null && authHeaders.size() > 0) {
+            String bearerToken = authHeaders.get(0);
+
+            if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
+                tk = bearerToken.substring(7);  // Extract the token from the string.
+            } 
+        } 
+        return tk;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public String generateToken() {

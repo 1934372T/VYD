@@ -32,6 +32,11 @@ public class Slide {
     public Slide(int id) {
         this.id = id;
     }
+
+    public Slide(String name, byte[] body) {
+        this.name = name;
+        this.body = body;
+    }
     
     /*
      * =====================================================
