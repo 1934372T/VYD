@@ -10,11 +10,7 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import { HOST_URL } from "configs/api";
 import { BaseBackdrop, BaseForm } from "components/views/ui";
 import { style } from "components/views/style";
-
-type SignInRespParams = {
-  token?: string;
-  message?: string;
-};
+import keys from "configs/keys";
 
 const SignInPage = () => {
   const router = useNavigate();
@@ -26,18 +22,17 @@ const SignInPage = () => {
     setOpen(true);
     const data = new FormData(event.currentTarget);
     axios
-      .post(HOST_URL + "/api/v1/auth/signin", {
+      .post(HOST_URL + "auth/signin", {
         student_id: data.get("student_id"),
         password: data.get("password"),
       })
-      .then((res: AxiosResponse<SignInRespParams>) => {
+      .then((res: AxiosResponse) => {
         const { data } = res;
         if (res.status === 200) {
           setOpen(false);
-          if (data.token !== undefined) {
-            window.localStorage.setItem("otpToken", data.token);
-            router("/app/otp");
-          }
+          console.log(data);
+          window.localStorage.setItem(keys.accessToken, String(data));
+          router("/#/");
         } else {
           setOpen(false);
           // @ts-ignore

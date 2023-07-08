@@ -15,14 +15,7 @@ export const $axios = ({ multipart = false }: { multipart?: boolean } = {}) => {
     // AxiosRequestConfig 型指定を削除
     if (typeof window !== "undefined") {
       if (window.localStorage.getItem(keys.accessToken) !== null) {
-        if (window.localStorage.getItem(keys.signUpToken) !== null) {
-          window.localStorage.removeItem(keys.signUpToken);
-        }
         const token = window.localStorage.getItem(keys.accessToken);
-        // @ts-ignore
-        config.headers.common["Authorization"] = `Bearer ${token}`;
-      } else if (window.localStorage.getItem(keys.signUpToken) !== null) {
-        const token = window.localStorage.getItem(keys.signUpToken);
         // @ts-ignore
         config.headers.common["Authorization"] = `Bearer ${token}`;
       }

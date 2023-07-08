@@ -38,17 +38,36 @@ public class AuthController {
     }
 
     @PostMapping("/signin")
-    public void signIn() {}
+    public ResponseEntity<?> signIn(@RequestBody SignInForm form) {
+        String studentId = form.getStudentId();
+        String password = form.getPassword();
+        return this.usecase.signIn(studentId, password);
+    }
 
     @PostMapping("/signup")
     public void signUp(@RequestBody SignUpForm form) {
-        System.out.println(form);
         String studentId = form.getStudentId();
         String password = form.getPassword();
         String firstName = form.getFirstName();
         String lastName = form.getLastName();
         Grade grade = form.getGrade();
         usecase.signUp(studentId, password, firstName, lastName, grade);
+    }
+}
+
+class SignInForm {
+    @JsonProperty("student_id")
+    private String studentId;
+
+    @JsonProperty("password")
+    private String password;
+
+    public String getStudentId() {
+        return this.studentId;
+    }
+
+    public String getPassword() {
+        return this.password;
     }
 }
 

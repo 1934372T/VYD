@@ -26,6 +26,7 @@ import { Container } from "@mui/material";
 import { GitHub } from "@mui/icons-material";
 import { $axios } from "configs/axios";
 import { AxiosError, AxiosResponse } from "axios";
+import keys from "configs/keys";
 
 const drawerWidth = 240;
 
@@ -123,12 +124,14 @@ export default function Template(props: TemplateProps) {
       .post("/auth/is-valid-token")
       .then((res: AxiosResponse) => {
         if (res.status !== 200) {
+          window.localStorage.removeItem(keys.accessToken);
           window.location.replace("/#/signin");
         } else {
           setShow(true);
         }
       })
       .catch((e: AxiosError) => {
+        window.localStorage.removeItem(keys.accessToken);
         window.location.replace("/#/signin");
       });
   }, []);

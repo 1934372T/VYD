@@ -7,21 +7,22 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.nat.nat.entity.Permission;
 import com.nat.nat.entity.Token;
 
 public class TokenManager {
     private String secretKey;
     private String userId;
-    private String permission;
+    private Permission permission;
     private String token;
     private static final Long EXPIRATION_TIME = 1000L * 60L * 10L;
 
-    TokenManager(String secretKey, String token) {
+    public TokenManager(String secretKey, String token) {
         this.secretKey = secretKey;
         this.token = token;
     }
 
-    TokenManager(String secretKey, String userId, String permission) {
+    public TokenManager(String secretKey, String userId, Permission permission) {
         this.secretKey = secretKey;
         this.userId = userId;
         this.permission = permission;
@@ -38,7 +39,7 @@ public class TokenManager {
             .withIssuedAt(issuedAt)
             .withNotBefore(notBefore)
             .withExpiresAt(expiredAt)
-            .withClaim("PERMISSION", permission)
+            .withClaim("PERMISSION", permission.toString())
             .withClaim("USER_ID", userId)
             .sign(algo);
 
