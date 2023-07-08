@@ -24,7 +24,7 @@ public class AuthUsecase implements AuthUsecaseInterfaces {
     }
 
     @Override
-    public boolean isValidTokenUsecase(List<String> authHeaders) {
+    public ResponseEntity<?> isValidTokenUsecase(List<String> authHeaders) {
         if (authHeaders != null && authHeaders.size() > 0) {
             String bearerToken = authHeaders.get(0);
 
@@ -33,14 +33,10 @@ public class AuthUsecase implements AuthUsecaseInterfaces {
 
                 TokenManager tm = new TokenManager("example", token);
 
-                if(!tm.isValidToken()) {
-                    return false;
-                }
-
-                return true;
+                return new ResponseEntity<>(tm.isValidToken() ? HttpStatus.OK : HttpStatus.UNAUTHORIZED);
             } 
         } 
-        return false;
+        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
     }
 
     @Override
@@ -62,11 +58,12 @@ public class AuthUsecase implements AuthUsecaseInterfaces {
     }
 
     @Override
-    public void signUp(String studentId, String password, String firstName, String lastName, Grade grade) {
+    public ResponseEntity<?> signUp(String studentId, String password, String firstName, String lastName, Grade grade) {
         StringOperator so = new StringOperator();
         String hashedPassword = so.sha256Hash(password);
         Student newStudent = new Student(firstName, lastName, grade, studentId, hashedPassword);
         this.studentRepo.create(newStudent);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

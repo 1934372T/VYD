@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,13 +27,9 @@ public class AuthController {
     }
 
     @PostMapping("/is-valid-token")
-    public ResponseEntity<String> isValidTokenController(@RequestHeader HttpHeaders headers) {
+    public ResponseEntity<?> isValidTokenController(@RequestHeader HttpHeaders headers) {
         List<String> authHeaders = headers.get("Authorization");
-        boolean isValidToken = this.usecase.isValidTokenUsecase(authHeaders);
-        if(isValidToken){
-            return ResponseEntity.status(HttpStatus.OK).build();
-        }
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        return this.usecase.isValidTokenUsecase(authHeaders);
     }
 
     @PostMapping("/signin")
@@ -45,13 +40,13 @@ public class AuthController {
     }
 
     @PostMapping("/signup")
-    public void signUp(@RequestBody SignUpForm form) {
+    public ResponseEntity<?> signUp(@RequestBody SignUpForm form) {
         String studentId = form.getStudentId();
         String password = form.getPassword();
         String firstName = form.getFirstName();
         String lastName = form.getLastName();
         Grade grade = form.getGrade();
-        usecase.signUp(studentId, password, firstName, lastName, grade);
+        return this.usecase.signUp(studentId, password, firstName, lastName, grade);
     }
 }
 
