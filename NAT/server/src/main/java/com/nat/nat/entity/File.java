@@ -13,6 +13,8 @@ public class File {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    private int studentId;
+    private String term;
 
     protected File() {}
 
@@ -22,5 +24,13 @@ public class File {
 
     public int getId() {
         return this.id;
+    }
+
+    public int getStudentId() {
+        return this.studentId;
+    }
+
+    public String getTerm() {
+        return this.term;
     }
 }
