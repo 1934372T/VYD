@@ -10,16 +10,19 @@ import { useDropzone } from "react-dropzone";
 
 interface FileUploaderProps {
   title: string;
+  onUpload: (v: File | null) => void;
 }
 
 export const FileUploader = (props: FileUploaderProps) => {
-  const { title } = props;
+  const { title, onUpload } = props;
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     setFile(acceptedFiles[0]);
+    onUpload(acceptedFiles[0]);
     setPreview(URL.createObjectURL(acceptedFiles[0]));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const { getRootProps, getInputProps } = useDropzone({
@@ -32,6 +35,7 @@ export const FileUploader = (props: FileUploaderProps) => {
 
   const handleFileDelete = () => {
     setFile(null);
+    onUpload(null);
     setPreview(null);
   };
 

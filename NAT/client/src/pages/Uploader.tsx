@@ -1,5 +1,5 @@
 // ** Import React
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 
 // ** Import MUI
 import Grid from "@mui/material/Grid";
@@ -15,10 +15,14 @@ import { FileUploader } from "components/utils/FileUploader";
 import { DatePickers } from "components/utils/DatePicker";
 import { MultiTextForm } from "components/utils/MultiTextForm";
 import { Button } from "@mui/material";
+import { $axios } from "configs/axios";
+import { AxiosError, AxiosResponse } from "axios";
 
 const UploadPage = () => {
-  const [open] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(false);
   const [url, setUrl] = useState<string>("");
+  const [paperFile, setPaperFile] = useState<File | null>(null);
+  const [slideFile, setSlideFile] = useState<File | null>(null);
 
   const handleChangeInputData = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -26,6 +30,30 @@ const UploadPage = () => {
       setUrl(e.target.value);
       console.log(url);
     }
+  };
+
+  const handleSubmit = async (event: FormEvent) => {
+    event.preventDefault();
+    setOpen(true);
+
+    const formData = new FormData();
+    if (paperFile) {
+      console.log("paper");
+      formData.append("paper", paperFile);
+    }
+    if (slideFile) {
+      console.log("slide");
+      formData.append("slide", slideFile);
+    }
+
+    $axios({ multipart: true })
+      .post("presentation/upload", formData)
+      .then((res: AxiosResponse) => {
+        console.log(res);
+      })
+      .catch((e: AxiosError) => {
+        console.log(e);
+      });
   };
 
   return (
@@ -57,16 +85,22 @@ const UploadPage = () => {
             title={
               "アップロードしたい論文（pdf）をドラッグ&ドロップしてください．"
             }
+            onUpload={setPaperFile}
           />
           <Title title={"発表スライド"} />
           <FileUploader
             title={
               "アップロードしたい発表スライド（pdf or pptx）をドラッグ&ドロップしてください．"
             }
+            onUpload={setSlideFile}
           />
           <Grid container spacing={2} sx={{ mt: 1 }} justifyContent="flex-end">
             <Grid item>
-              <Button variant="contained" color="secondary">
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={handleSubmit}
+              >
                 登録
               </Button>
             </Grid>
