@@ -66,4 +66,9 @@ public class PresentationUsecase implements PresentationUsecaseInterfaces {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
+
+    @Override
+    public ResponseEntity<?> getListWithQuery() {
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
