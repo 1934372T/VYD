@@ -1,23 +1,25 @@
 import { FormEvent, useState } from "react";
-import { useNavigate } from "react-router-dom";
+
+// Import MUI
 import TextField from "@mui/material/TextField";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+
+// Import Utils
 import axios, { AxiosResponse } from "axios";
+import { useNavigate } from "react-router-dom";
+
 import { BaseForm } from "components/views/ui";
 import { HOST_URL } from "configs/api";
 import { BaseBackdrop } from "components/views/ui";
 import { style } from "components/views/style";
-import {
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  SelectChangeEvent,
-} from "@mui/material";
 
 const SignUpPage = () => {
   const router = useNavigate();
