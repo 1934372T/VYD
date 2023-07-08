@@ -8,11 +8,11 @@ import org.springframework.stereotype.Service;
 
 import com.nat.nat.api.repository.interfaces.StudentRepositoryInterfaces;
 import com.nat.nat.api.usecase.interfaces.AuthUsecaseInterfaces;
-import com.nat.nat.entity.Grade;
-import com.nat.nat.entity.Permission;
 import com.nat.nat.entity.Student;
 import com.nat.nat.lib.auth.TokenManager;
 import com.nat.nat.lib.utils.StringOperator;
+import com.nat.nat.rules.Grade;
+import com.nat.nat.rules.Permission;
 
 @Service
 public class AuthUsecase implements AuthUsecaseInterfaces {

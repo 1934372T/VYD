@@ -1,5 +1,7 @@
 package com.nat.nat.entity;
 
+import com.nat.nat.rules.Grade;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;

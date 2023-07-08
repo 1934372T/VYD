@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.nat.nat.api.usecase.interfaces.AuthUsecaseInterfaces;
-import com.nat.nat.entity.Grade;
+import com.nat.nat.rules.Grade;
 
 @RestController
 @RequestMapping("/api/v1/auth")

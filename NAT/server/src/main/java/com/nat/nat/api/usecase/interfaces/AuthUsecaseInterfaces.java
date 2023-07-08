@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 
-import com.nat.nat.entity.Grade;
+import com.nat.nat.rules.Grade;
 
 public interface AuthUsecaseInterfaces {
     public ResponseEntity<?> isValidTokenUsecase(List<String> authHeaders);

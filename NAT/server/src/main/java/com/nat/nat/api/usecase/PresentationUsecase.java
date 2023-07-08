@@ -17,9 +17,9 @@ import com.nat.nat.entity.Paper;
 import com.nat.nat.entity.Presentation;
 import com.nat.nat.entity.Slide;
 import com.nat.nat.entity.Student;
-import com.nat.nat.entity.Token;
 import com.nat.nat.lib.auth.TokenManager;
 import com.nat.nat.lib.utils.StringOperator;
+import com.nat.nat.rules.Token;
 
 @Service
 public class PresentationUsecase implements PresentationUsecaseInterfaces {

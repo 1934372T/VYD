@@ -1,4 +1,4 @@
-package com.nat.nat.entity;
+package com.nat.nat.rules;
 
 public enum Permission {
     STUDENT, ADMIN
