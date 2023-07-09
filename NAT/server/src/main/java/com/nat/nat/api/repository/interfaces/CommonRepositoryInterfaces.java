@@ -4,7 +4,8 @@ import java.util.List;
 
 public interface CommonRepositoryInterfaces<T> {
     T create(T entity);
-    T getById(Long id);
     void createBatch(List<T> entities);
+    T getById(Long id);
+    List<T> getWithQuery(List<String> queries);
     void update(T entity);
 }

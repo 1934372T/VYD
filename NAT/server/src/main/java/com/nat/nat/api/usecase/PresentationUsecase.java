@@ -1,7 +1,10 @@
 package com.nat.nat.api.usecase;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +22,7 @@ import com.nat.nat.entity.Slide;
 import com.nat.nat.entity.Student;
 import com.nat.nat.lib.auth.TokenManager;
 import com.nat.nat.lib.utils.StringOperator;
+import com.nat.nat.lib.utils.TimeOperator;
 import com.nat.nat.rules.Token;
 
 @Service
@@ -38,6 +42,7 @@ public class PresentationUsecase implements PresentationUsecaseInterfaces {
     @Override
     public ResponseEntity<?> create(List<String> headers, MultipartFile paper, MultipartFile slide, String title, String date, String note) {
         StringOperator so = new StringOperator();
+        TimeOperator to = new TimeOperator();
         TokenManager tm = new TokenManager("example");
         String tk = tm.getTokenFromHeaders(headers);
         tm.setToken(tk);
@@ -60,6 +65,9 @@ public class PresentationUsecase implements PresentationUsecaseInterfaces {
             Presentation newPresentation = new Presentation(student.getId(), title, so.convertIsoToLocalDateTime(date), note);
             newPresentation.setPaperId(createdPaper.getId());
             newPresentation.setSlideId(createdSlide.getId());
+            String term = to.extractTermFromDate(so.convertIsoToLocalDateTime(date));
+            newPresentation.setTerm(term);
+            newPresentation.setDegree(student.getGrade());
             Presentation createdPresentation = this.presentationRepo.create(newPresentation);
             return new ResponseEntity<>(createdPresentation, HttpStatus.OK);
         } catch (IOException e) {
@@ -68,7 +76,53 @@ public class PresentationUsecase implements PresentationUsecaseInterfaces {
     }
 
     @Override
-    public ResponseEntity<?> getListWithQuery() {
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<?> getListWithQuery(List<String> queries) {
+        TimeOperator tm = new TimeOperator();
+        List<Presentation> presentations = this.presentationRepo.getWithQuery(queries);
+        List<GetListWithQueryResponse> res = new ArrayList<GetListWithQueryResponse>();
+        for(Presentation presentation : presentations) {
+            GetListWithQueryResponse value = new GetListWithQueryResponse(presentation.getId(), presentation.getTitle(), tm.japaneseDateConverter(presentation.getDate()));
+            res.add(value);
+        }
+        return new ResponseEntity<>(res, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<?> getAllTerm() {
+        List<String> eq = new ArrayList<String>();
+        List<Presentation> presentations = this.presentationRepo.getWithQuery(eq);
+        Map<String, boolean[]> mp = new HashMap<>();
+        for(Presentation presentation : presentations) {
+            mp.put(presentation.getTerm(), null);
+        }
+        List<String> terms = new ArrayList<String>();
+        for(String key : mp.keySet()) {
+            terms.add(key);
+        }
+        return new ResponseEntity<>(terms, HttpStatus.OK);
+    }
+}
+
+class GetListWithQueryResponse {
+    public int id;
+    public String title;
+    public String date;
+
+    public GetListWithQueryResponse(int id, String title, String date) {
+        this.id = id;
+        this.title = title;
+        this.date = date;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }

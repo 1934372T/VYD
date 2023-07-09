@@ -1,5 +1,6 @@
 package com.nat.nat.api.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,19 @@ public class PresentationController {
     }
 
     @GetMapping("/list")
-    public ResponseEntity<?> getListWithQuery() {
-        return this.usecase.getListWithQuery();
+    public ResponseEntity<?> getListWithQuery(@RequestParam("term") String term, @RequestParam("degree") String degree) {
+        List<String> queries = new ArrayList<String>();
+        if(!term.contains("none")) {
+            queries.add("term="+term);
+        }
+        if(!degree.contains("none")) {
+            queries.add("degree="+degree);
+        }
+        return this.usecase.getListWithQuery(queries);
+    }
+
+    @GetMapping("/terms")
+    public ResponseEntity<?> getAllTerms() {
+        return this.usecase.getAllTerm();
     }
 }
