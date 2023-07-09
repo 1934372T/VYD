@@ -1,5 +1,5 @@
 import Template from "pages/Template";
-import { BaseContainer, BaseItem } from "components/views/ui";
+import { BaseContainer, BaseItem, Title } from "components/views/ui";
 import { HOME } from "models/constants";
 
 const Home = () => {
@@ -7,7 +7,7 @@ const Home = () => {
     <Template name={HOME}>
       <BaseContainer>
         <BaseItem xs={12}>
-          <></>
+          <Title title={"論文管理システム by ボルシャック大和ドラゴン"} />
         </BaseItem>
       </BaseContainer>
     </Template>
