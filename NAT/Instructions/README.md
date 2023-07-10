@@ -1,6 +1,6 @@
 # 説明書
 
-### [ログイン](https://github.com/1934372T/VYD/blob/main/NAT/usecase/image/login.png)
+### ログイン
 
 学籍番号とパスワードを入力し,ログインボタンを押す.
 
