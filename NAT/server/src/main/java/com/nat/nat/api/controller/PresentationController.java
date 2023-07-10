@@ -33,6 +33,11 @@ public class PresentationController {
         return this.usecase.create(authHeaders, paperFile, slideFile, title, date, note);
     }
 
+    @GetMapping("/")
+    public ResponseEntity<?> getById(@RequestParam("id") int id) {
+        return this.usecase.getById(id);
+    }
+
     @GetMapping("/list")
     public ResponseEntity<?> getListWithQuery(@RequestParam("term") String term, @RequestParam("degree") String degree) {
         List<String> queries = new ArrayList<String>();

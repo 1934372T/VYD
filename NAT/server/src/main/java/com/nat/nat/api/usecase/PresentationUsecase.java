@@ -76,6 +76,12 @@ public class PresentationUsecase implements PresentationUsecaseInterfaces {
     }
 
     @Override
+    public ResponseEntity<?> getById(int id) {
+        Presentation presentation = this.presentationRepo.getById((long) id);
+        return new ResponseEntity<>(presentation, HttpStatus.OK);
+    }
+
+    @Override
     public ResponseEntity<?> getListWithQuery(List<String> queries) {
         TimeOperator tm = new TimeOperator();
         List<Presentation> presentations = this.presentationRepo.getWithQuery(queries);

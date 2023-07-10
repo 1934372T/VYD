@@ -1,6 +1,15 @@
 // ** Import React
+import { useEffect, useState } from "react";
 
 // ** Import MUI
+import Box from "@mui/material/Box";
+import FormControl from "@mui/material/FormControl";
+import Grid from "@mui/material/Grid";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import Modal from "@mui/material/Modal";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Typography from "@mui/material/Typography";
 
 // ** Import Components
 import Template from "pages/Template";
@@ -11,15 +20,7 @@ import {
   GenericTable,
   Title,
 } from "components/views/ui";
-import {
-  FormControl,
-  Grid,
-  InputLabel,
-  MenuItem,
-  Select,
-  SelectChangeEvent,
-} from "@mui/material";
-import { useEffect, useState } from "react";
+
 import { AxiosError, AxiosResponse } from "axios";
 import { $axios } from "configs/axios";
 
@@ -50,12 +51,25 @@ type Presentations = {
   date: Date;
 }[];
 
+const style = {
+  position: "absolute" as "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
+
 const ListPage = () => {
   const [degree, setDegree] = useState<string>("none");
   const [term, setTerm] = useState<string>("none");
   const [terms, setTerms] = useState<string[]>([]);
   const [listTitle, setListTitle] = useState<string | undefined>(undefined);
   const [listData, setListData] = useState<Presentations>([]);
+  const [open, setOpen] = useState(false);
 
   const builder = (term: string, degree: string) => {
     var t: string = "";
@@ -86,6 +100,22 @@ const ListPage = () => {
     setTerm(event.target.value);
     setListTitle(builder(event.target.value, degree));
   };
+
+  const handleClickRow = (id: number) => {
+    console.log(id);
+    $axios()
+      .get(`presentation/?id=${id}`)
+      .then((res: AxiosResponse) => {
+        const { data } = res;
+        console.log(data);
+      })
+      .catch((e: AxiosError) => {
+        console.log(e);
+      });
+    setOpen(true);
+  };
+
+  const handleClose = () => setOpen(false);
 
   useEffect(() => {
     $axios()
@@ -167,7 +197,28 @@ const ListPage = () => {
         </BaseItem>
         <BaseItem xs={12}>
           {listTitle !== undefined ? <Title title={listTitle} /> : <></>}
-          <GenericTable headCells={header} rows={listData} ignoreIndex={1000} />
+          <GenericTable
+            headCells={header}
+            rows={listData}
+            ignoreIndex={1000}
+            onClickTableRow={handleClickRow}
+            customModal={
+              <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+              >
+                <Box sx={style}>
+                  <Title title={"テストモーダル"} />
+                  <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                    Duis mollis, est non commodo luctus, nisi erat porttitor
+                    ligula.
+                  </Typography>
+                </Box>
+              </Modal>
+            }
+          />
         </BaseItem>
       </BaseContainer>
     </Template>

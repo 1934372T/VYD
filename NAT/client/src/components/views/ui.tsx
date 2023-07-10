@@ -227,7 +227,9 @@ export const GenericTable = (props: GenericTableProps) => {
                       }}
                       onClick={
                         // eslint-disable-next-line @typescript-eslint/no-empty-function
-                        onClickTableRow ? () => onClickTableRow(row) : () => {}
+                        onClickTableRow
+                          ? () => onClickTableRow(row.id)
+                          : () => {}
                       }
                     >
                       {Object.values(row).map((v, i) => {

@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface PresentationUsecaseInterfaces {
     public ResponseEntity<?> create(List<String> headers, MultipartFile paper, MultipartFile slide, String title, String date, String note);
+    public ResponseEntity<?> getById(int id);
     public ResponseEntity<?> getListWithQuery(List<String> queries);
     public ResponseEntity<?> getAllTerm();
 }
