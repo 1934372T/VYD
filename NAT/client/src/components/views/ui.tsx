@@ -219,7 +219,7 @@ export const GenericTable = (props: GenericTableProps) => {
                   return (
                     <TableRow
                       tabIndex={-1}
-                      key={index}
+                      key={labelId + "-row-" + String(index)}
                       hover
                       sx={{
                         backgroundColor: "white",
@@ -235,18 +235,16 @@ export const GenericTable = (props: GenericTableProps) => {
                           return null;
                         } else {
                           return (
-                            <>
-                              <TableCell
-                                component="th"
-                                key={labelId + String(v)}
-                                id={labelId}
-                                scope="row"
-                                padding="none"
-                                align="center"
-                              >
-                                {<>{v}</>}
-                              </TableCell>
-                            </>
+                            <TableCell
+                              component="th"
+                              key={labelId + "-cell-" + String(i)}
+                              id={labelId}
+                              scope="row"
+                              padding="none"
+                              align="center"
+                            >
+                              {<>{v}</>}
+                            </TableCell>
                           );
                         }
                       })}

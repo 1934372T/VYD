@@ -127,16 +127,16 @@ const ListPage = () => {
                   label="degree"
                   onChange={handleChangeDegree}
                 >
-                  <MenuItem key={1} value={"none"}>
+                  <MenuItem key={"degree-" + 1} value={"none"}>
                     {"指定なし"}
                   </MenuItem>
-                  <MenuItem key={2} value={"bachelor"}>
+                  <MenuItem key={"degree-" + 2} value={"bachelor"}>
                     {"学士"}
                   </MenuItem>
-                  <MenuItem key={3} value={"master"}>
+                  <MenuItem key={"degree-" + 3} value={"master"}>
                     {"修士"}
                   </MenuItem>
-                  <MenuItem key={4} value={"doctor"}>
+                  <MenuItem key={"degree-" + 4} value={"doctor"}>
                     {"博士"}
                   </MenuItem>
                 </Select>
@@ -144,19 +144,19 @@ const ListPage = () => {
             </Grid>
             <Grid item xs={6}>
               <FormControl fullWidth size="small">
-                <InputLabel id="demo-simple-select-label">年度</InputLabel>
+                <InputLabel id="term-label">年度</InputLabel>
                 <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
+                  labelId="term-label"
+                  id="term"
                   value={String(term)}
                   label="term"
                   onChange={handleChangeTerm}
                 >
-                  <MenuItem key={-1} value={"none"}>
+                  <MenuItem key={"term-none"} value={"none"}>
                     {"指定なし"}
                   </MenuItem>
                   {terms.map((term, i) => (
-                    <MenuItem key={i} value={term}>
+                    <MenuItem key={"term-" + i} value={term}>
                       {term}
                     </MenuItem>
                   ))}
