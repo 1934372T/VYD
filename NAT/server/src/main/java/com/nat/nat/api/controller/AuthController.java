@@ -12,31 +12,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.nat.nat.api.usecase.interfaces.AuthUsecaseInterfaces;
+import com.nat.nat.api.services.interfaces.AuthServiceInterface;
 import com.nat.nat.rules.Grade;
 
 @RestController
 @RequestMapping("/api/v1/auth")
 public class AuthController {
 
-    private final AuthUsecaseInterfaces usecase;
+    private final AuthServiceInterface service;
 
     @Autowired
-    public AuthController(AuthUsecaseInterfaces usecase) {
-        this.usecase = usecase;
+    public AuthController(AuthServiceInterface service) {
+        this.service = service;
     }
 
     @PostMapping("/is-valid-token")
-    public ResponseEntity<?> isValidTokenController(@RequestHeader HttpHeaders headers) {
+    public ResponseEntity<?> isValidToken(@RequestHeader HttpHeaders headers) {
         List<String> authHeaders = headers.get("Authorization");
-        return this.usecase.isValidTokenUsecase(authHeaders);
+        return this.service.isValidToken(authHeaders);
     }
 
     @PostMapping("/signin")
     public ResponseEntity<?> signIn(@RequestBody SignInForm form) {
         String studentId = form.getStudentId();
         String password = form.getPassword();
-        return this.usecase.signIn(studentId, password);
+        return this.service.signIn(studentId, password);
     }
 
     @PostMapping("/signup")
@@ -46,7 +46,7 @@ public class AuthController {
         String firstName = form.getFirstName();
         String lastName = form.getLastName();
         Grade grade = form.getGrade();
-        return this.usecase.signUp(studentId, password, firstName, lastName, grade);
+        return this.service.signUp(studentId, password, firstName, lastName, grade);
     }
 }
 

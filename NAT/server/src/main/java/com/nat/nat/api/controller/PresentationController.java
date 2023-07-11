@@ -14,28 +14,28 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.nat.nat.api.usecase.interfaces.PresentationUsecaseInterfaces;
+import com.nat.nat.api.services.interfaces.PresentationServiceInterface;
 
 @RestController
 @RequestMapping("/api/v1/presentation")
 public class PresentationController {
 
-    private final PresentationUsecaseInterfaces usecase;
+    private final PresentationServiceInterface service;
 
     @Autowired
-    public PresentationController(PresentationUsecaseInterfaces usecase) {
-        this.usecase = usecase;
+    public PresentationController(PresentationServiceInterface service) {
+        this.service = service;
     }
 
     @PostMapping("/upload")
     public ResponseEntity<?> create(@RequestHeader HttpHeaders headers, @RequestParam("paper") MultipartFile paperFile, @RequestParam("slide") MultipartFile slideFile, @RequestParam("title") String title, @RequestParam("date") String date, @RequestParam("note") String note) {
         List<String> authHeaders = headers.get("Authorization");
-        return this.usecase.create(authHeaders, paperFile, slideFile, title, date, note);
+        return this.service.create(authHeaders, paperFile, slideFile, title, date, note);
     }
 
     @GetMapping("/")
     public ResponseEntity<?> getById(@RequestParam("id") int id) {
-        return this.usecase.getById(id);
+        return this.service.getById(id);
     }
 
     @GetMapping("/list")
@@ -47,11 +47,11 @@ public class PresentationController {
         if(!degree.contains("none")) {
             queries.add("degree="+degree);
         }
-        return this.usecase.getListWithQuery(queries);
+        return this.service.getListWithQuery(queries);
     }
 
     @GetMapping("/terms")
     public ResponseEntity<?> getAllTerms() {
-        return this.usecase.getAllTerm();
+        return this.service.getAllTerm();
     }
 }

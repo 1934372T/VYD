@@ -2,7 +2,7 @@ package com.nat.nat.api.repository.interfaces;
 
 import java.util.List;
 
-public interface CommonRepositoryInterfaces<T> {
+public interface CommonRepositoryInterface<T> {
     T create(T entity);
     void createBatch(List<T> entities);
     T getById(Long id);

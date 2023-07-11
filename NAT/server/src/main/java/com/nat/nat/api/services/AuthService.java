@@ -1,4 +1,4 @@
-package com.nat.nat.api.usecase;
+package com.nat.nat.api.services;
 
 import java.util.List;
 
@@ -6,8 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.nat.nat.api.repository.interfaces.StudentRepositoryInterfaces;
-import com.nat.nat.api.usecase.interfaces.AuthUsecaseInterfaces;
+import com.nat.nat.api.repository.interfaces.StudentRepositoryInterface;
+import com.nat.nat.api.services.interfaces.AuthServiceInterface;
 import com.nat.nat.entity.Student;
 import com.nat.nat.lib.auth.TokenManager;
 import com.nat.nat.lib.utils.StringOperator;
@@ -15,16 +15,16 @@ import com.nat.nat.rules.Grade;
 import com.nat.nat.rules.Permission;
 
 @Service
-public class AuthUsecase implements AuthUsecaseInterfaces {
+public class AuthService implements AuthServiceInterface {
 
-    private final StudentRepositoryInterfaces studentRepo;
+    private final StudentRepositoryInterface studentRepo;
 
-    public AuthUsecase(StudentRepositoryInterfaces studentRepo) {
+    public AuthService(StudentRepositoryInterface studentRepo) {
         this.studentRepo = studentRepo;
     }
 
     @Override
-    public ResponseEntity<?> isValidTokenUsecase(List<String> authHeaders) {
+    public ResponseEntity<?> isValidToken(List<String> authHeaders) {
         if (authHeaders != null && authHeaders.size() > 0) {
             String bearerToken = authHeaders.get(0);
 

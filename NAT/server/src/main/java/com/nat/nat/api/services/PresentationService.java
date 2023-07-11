@@ -1,4 +1,4 @@
-package com.nat.nat.api.usecase;
+package com.nat.nat.api.services;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,11 +11,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.nat.nat.api.repository.interfaces.PaperRepositoryInterfaces;
-import com.nat.nat.api.repository.interfaces.PresentationRepositoryInterfaces;
-import com.nat.nat.api.repository.interfaces.SlideRepositoryInterfaces;
-import com.nat.nat.api.repository.interfaces.StudentRepositoryInterfaces;
-import com.nat.nat.api.usecase.interfaces.PresentationUsecaseInterfaces;
+import com.nat.nat.api.repository.interfaces.PaperRepositoryInterface;
+import com.nat.nat.api.repository.interfaces.PresentationRepositoryInterface;
+import com.nat.nat.api.repository.interfaces.SlideRepositoryInterface;
+import com.nat.nat.api.repository.interfaces.StudentRepositoryInterface;
+import com.nat.nat.api.services.interfaces.PresentationServiceInterface;
 import com.nat.nat.entity.Paper;
 import com.nat.nat.entity.Presentation;
 import com.nat.nat.entity.Slide;
@@ -26,13 +26,13 @@ import com.nat.nat.lib.utils.TimeOperator;
 import com.nat.nat.rules.Token;
 
 @Service
-public class PresentationUsecase implements PresentationUsecaseInterfaces {
-    private final PaperRepositoryInterfaces paperRepo;
-    private final SlideRepositoryInterfaces slideRepo;
-    private final PresentationRepositoryInterfaces presentationRepo;
-    private final StudentRepositoryInterfaces studentRepo;
+public class PresentationService implements PresentationServiceInterface {
+    private final PaperRepositoryInterface paperRepo;
+    private final SlideRepositoryInterface slideRepo;
+    private final PresentationRepositoryInterface presentationRepo;
+    private final StudentRepositoryInterface studentRepo;
 
-    public PresentationUsecase(PaperRepositoryInterfaces paperRepo, SlideRepositoryInterfaces slideRepo, PresentationRepositoryInterfaces presentationRepo, StudentRepositoryInterfaces studentRepo) {
+    public PresentationService(PaperRepositoryInterface paperRepo, SlideRepositoryInterface slideRepo, PresentationRepositoryInterface presentationRepo, StudentRepositoryInterface studentRepo) {
         this.paperRepo = paperRepo;
         this.slideRepo = slideRepo;
         this.presentationRepo = presentationRepo;
