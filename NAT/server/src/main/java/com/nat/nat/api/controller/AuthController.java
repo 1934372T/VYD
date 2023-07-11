@@ -14,9 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.nat.nat.api.services.interfaces.AuthServiceInterface;
 import com.nat.nat.rules.Grade;
+import com.nat.nat.rules.Consts;
 
 @RestController
-@RequestMapping("/api/v1/auth")
+@RequestMapping(Consts.API_PREFIX+"/auth")
 public class AuthController {
 
     private final AuthServiceInterface service;

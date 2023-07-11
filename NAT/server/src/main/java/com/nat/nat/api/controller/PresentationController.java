@@ -15,9 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.nat.nat.api.services.interfaces.PresentationServiceInterface;
+import com.nat.nat.rules.Consts;
 
 @RestController
-@RequestMapping("/api/v1/presentation")
+@RequestMapping(Consts.API_PREFIX+"/presentation")
 public class PresentationController {
 
     private final PresentationServiceInterface service;

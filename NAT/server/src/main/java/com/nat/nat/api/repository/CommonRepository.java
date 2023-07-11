@@ -17,6 +17,8 @@ import com.nat.nat.entity.CommonEntity;
 
 public abstract class CommonRepository<T> {
 
+    private static final String TIME_ZOME = "Asia/Tokyo";
+
     @Autowired
     protected EntityManager entityManager;
     
@@ -28,7 +30,7 @@ public abstract class CommonRepository<T> {
 
     @Transactional
     public T create(T entity) {
-        LocalDateTime createdAt = LocalDateTime.now(ZoneId.of("Asia/Tokyo"));
+        LocalDateTime createdAt = LocalDateTime.now(ZoneId.of(TIME_ZOME));
         if(entity instanceof CommonEntity) {
             CommonEntity commonEntity = (CommonEntity) entity;
             commonEntity.setCreatedAt(createdAt);
@@ -41,7 +43,7 @@ public abstract class CommonRepository<T> {
     @Transactional
     public void createBatch(List<T> entities) {
         for(T entity : entities) {
-            LocalDateTime createdAt = LocalDateTime.now(ZoneId.of("Asia/Tokyo"));
+            LocalDateTime createdAt = LocalDateTime.now(ZoneId.of(TIME_ZOME));
             if(entity instanceof CommonEntity) {
                 CommonEntity commonEntity = (CommonEntity) entity;
                 commonEntity.setCreatedAt(createdAt);
@@ -76,7 +78,7 @@ public abstract class CommonRepository<T> {
     
     @Transactional
     public void update(T entity) {
-        LocalDateTime updatedAt = LocalDateTime.now(ZoneId.of("Asia/Tokyo"));
+        LocalDateTime updatedAt = LocalDateTime.now(ZoneId.of(TIME_ZOME));
         if(entity instanceof CommonEntity) {
             CommonEntity commonEntity = (CommonEntity) entity;
             commonEntity.setUpdatedAt(updatedAt);
@@ -87,7 +89,7 @@ public abstract class CommonRepository<T> {
     @Transactional
     public void softDelete(Long id) {
         T entity = getById(id);
-        LocalDateTime deletedAt = LocalDateTime.now(ZoneId.of("Asia/Tokyo"));
+        LocalDateTime deletedAt = LocalDateTime.now(ZoneId.of(TIME_ZOME));
         if(entity instanceof CommonEntity) {
             CommonEntity commonEntity = (CommonEntity) entity;
             commonEntity.setDeletedAt(deletedAt);

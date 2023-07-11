@@ -27,18 +27,10 @@ public class AuthService implements AuthServiceInterface {
 
     @Override
     public ResponseEntity<?> isValidToken(List<String> authHeaders) {
-        if (authHeaders != null && authHeaders.size() > 0) {
-            String bearerToken = authHeaders.get(0);
-
-            if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
-                String token = bearerToken.substring(7);  // Extract the token from the string.
-
-                TokenManager tm = new TokenManager("example", token);
-
-                return new ResponseEntity<>(tm.isValidToken() ? HttpStatus.OK : HttpStatus.UNAUTHORIZED);
-            } 
-        } 
-        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        TokenManager tm = new TokenManager("example");
+        String token = tm.getTokenFromHeaders(authHeaders);
+        tm.setToken(token);
+        return new ResponseEntity<>(tm.isValidToken() ? HttpStatus.OK : HttpStatus.UNAUTHORIZED);
     }
 
     @Override

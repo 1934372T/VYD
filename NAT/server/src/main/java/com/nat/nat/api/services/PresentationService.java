@@ -130,11 +130,23 @@ class GetListWithQueryResponse {
         this.id = id;
     }
 
+    public int getId() {
+        return this.id;
+    }
+
     public void setTitle(String title) {
         this.title = title;
     }
 
+    public String getTitle() {
+        return this.title;
+    }
+
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getDate() {
+        return this.date;
     }
 }

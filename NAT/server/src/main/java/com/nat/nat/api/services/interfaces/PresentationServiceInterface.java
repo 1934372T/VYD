@@ -6,8 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface PresentationServiceInterface {
-    public ResponseEntity<?> create(List<String> headers, MultipartFile paper, MultipartFile slide, String title, String date, String note);
-    public ResponseEntity<?> getById(int id);
-    public ResponseEntity<?> getListWithQuery(List<String> queries);
-    public ResponseEntity<?> getAllTerm();
+    ResponseEntity<?> create(List<String> headers, MultipartFile paper, MultipartFile slide, String title, String date, String note);
+    ResponseEntity<?> getById(int id);
+    ResponseEntity<?> getListWithQuery(List<String> queries);
+    ResponseEntity<?> getAllTerm();
 }

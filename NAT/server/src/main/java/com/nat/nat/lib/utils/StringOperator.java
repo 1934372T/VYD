@@ -11,6 +11,9 @@ import java.time.ZoneId;
  * 文字列操作に関する色々を定義している．
  */
 public class StringOperator {
+    /*
+     * 文字列をSHA-256でハッシュ化する
+     */
     public String sha256Hash(String input) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
@@ -33,11 +36,17 @@ public class StringOperator {
         return null;
     }
 
+    /*
+     * パスワードを比較する．
+     */
     public boolean comparePasswords(String password, String hashedPassword) {
         password = sha256Hash(password);
         return password.equals(hashedPassword);
     }
 
+    /*
+     * ISOStringをLocalDateTime型に変換する．
+     */
     public LocalDateTime convertIsoToLocalDateTime(String date) {
         Instant instant = Instant.parse(date);
         return LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
