@@ -17,6 +17,8 @@ public class TokenManager {
     private Permission permission;
     private String token;
     private static final Long EXPIRATION_TIME = 1000L * 60L * 10L;
+    private static final String PREMISSION = "PERMISSION";
+    private static final String USER_ID = "USER_ID";
 
     public TokenManager(String secretKey) {
         this.secretKey = secretKey;
@@ -34,7 +36,7 @@ public class TokenManager {
     }
 
     public String getTokenFromHeaders(List<String> authHeaders) {
-        String tk = "";
+        String tk = new String();
         if (authHeaders != null && authHeaders.size() > 0) {
             String bearerToken = authHeaders.get(0);
 
@@ -60,8 +62,8 @@ public class TokenManager {
             .withIssuedAt(issuedAt)
             .withNotBefore(notBefore)
             .withExpiresAt(expiredAt)
-            .withClaim("PERMISSION", permission.toString())
-            .withClaim("USER_ID", userId)
+            .withClaim(PREMISSION, permission.toString())
+            .withClaim(USER_ID, userId)
             .sign(algo);
 
         return this.token;
@@ -80,8 +82,8 @@ public class TokenManager {
         Date expiresAt = jwt.getExpiresAt();
 
         // private claims
-        String permission = jwt.getClaim("PERMISSION").asString();
-        String userId = jwt.getClaim("USER_ID").asString();
+        String permission = jwt.getClaim(PREMISSION).asString();
+        String userId = jwt.getClaim(USER_ID).asString();
 
         Token decodedToken = new Token(subject, issuedAt, notBefore, expiresAt, permission, userId);
         return decodedToken;

@@ -21,26 +21,30 @@ import com.nat.nat.rules.Consts;
 public class AuthController {
 
     private final AuthServiceInterface service;
+    
+    private static final String IS_VALID_TOKEN  = "/is-valid-token";
+    private static final String SIGN_IN         = "/signin";
+    private static final String SIGN_UP         = "/signup";
 
     @Autowired
     public AuthController(AuthServiceInterface service) {
         this.service = service;
     }
 
-    @PostMapping("/is-valid-token")
+    @PostMapping(IS_VALID_TOKEN)
     public ResponseEntity<?> isValidToken(@RequestHeader HttpHeaders headers) {
         List<String> authHeaders = headers.get("Authorization");
         return this.service.isValidToken(authHeaders);
     }
 
-    @PostMapping("/signin")
+    @PostMapping(SIGN_IN)
     public ResponseEntity<?> signIn(@RequestBody SignInForm form) {
         String studentId = form.getStudentId();
         String password = form.getPassword();
         return this.service.signIn(studentId, password);
     }
 
-    @PostMapping("/signup")
+    @PostMapping(SIGN_UP)
     public ResponseEntity<?> signUp(@RequestBody SignUpForm form) {
         String studentId = form.getStudentId();
         String password = form.getPassword();

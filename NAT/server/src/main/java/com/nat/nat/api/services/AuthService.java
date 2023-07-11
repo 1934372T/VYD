@@ -27,19 +27,18 @@ public class AuthService implements AuthServiceInterface {
 
     @Override
     public ResponseEntity<?> isValidToken(List<String> authHeaders) {
-        TokenManager tm = new TokenManager("example");
-        String token = tm.getTokenFromHeaders(authHeaders);
+        TokenManager tm     = new TokenManager("example");
+        String       token  = tm.getTokenFromHeaders(authHeaders);
         tm.setToken(token);
         return new ResponseEntity<>(tm.isValidToken() ? HttpStatus.OK : HttpStatus.UNAUTHORIZED);
     }
 
     @Override
     public ResponseEntity<?> signIn(String studentId, String password) {
-        StringOperator so = new StringOperator();
-        TokenManager tm = new TokenManager("example", studentId, Permission.valueOf("STUDENT"));
-        
-        List<String> query = new ArrayList<String>(Arrays.asList("studentId="+studentId));
-        List<Student> students = this.studentRepo.getWithQuery(query);
+        StringOperator  so       = new StringOperator();
+        TokenManager    tm       = new TokenManager("example", studentId, Permission.valueOf("STUDENT"));
+        List<String>    query    = new ArrayList<String>(Arrays.asList("studentId="+studentId));
+        List<Student>   students = this.studentRepo.getWithQuery(query);
         
         if(students.size() != 1 || students.get(0) == null) {
             return new ResponseEntity<>("Student not found", HttpStatus.UNAUTHORIZED);
@@ -56,9 +55,9 @@ public class AuthService implements AuthServiceInterface {
 
     @Override
     public ResponseEntity<?> signUp(String studentId, String password, String firstName, String lastName, Grade grade) {
-        StringOperator so = new StringOperator();
-        String hashedPassword = so.sha256Hash(password);
-        Student newStudent = new Student(firstName, lastName, grade, studentId, hashedPassword);
+        StringOperator  so              = new StringOperator();
+        String          hashedPassword  = so.sha256Hash(password);
+        Student         newStudent      = new Student(firstName, lastName, grade, studentId, hashedPassword);
         this.studentRepo.create(newStudent);
         return new ResponseEntity<>(HttpStatus.OK);
     }

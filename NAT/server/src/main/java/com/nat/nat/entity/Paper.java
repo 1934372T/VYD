@@ -8,10 +8,10 @@ import jakarta.persistence.Table;
 @Table(name = "papers")
 public class Paper extends CommonEntity {
 
-    private String name;
-
     @Lob
     private byte[] body;
+    private String name;
+
 
     /*
      * =====================================================

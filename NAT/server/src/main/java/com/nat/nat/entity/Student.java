@@ -11,12 +11,12 @@ import jakarta.persistence.Table;
 @Table(name = "students")
 public class Student extends CommonEntity {
 
-    private String firstName; // 名前
-    private String lastName; // 名字
     @Enumerated(EnumType.STRING)
-    private Grade grade; // 学年
-    private String studentId; // 学籍番号
-    private String password;
+    private Grade   grade;      // 学年
+    private String  firstName;  // 名前
+    private String  lastName;   // 名字
+    private String  studentId;  // 学籍番号
+    private String  password;   // パスワード
 
     /*
      * =====================================================

@@ -12,7 +12,7 @@ public abstract class CommonEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected int id;
+    protected int           id;
     protected LocalDateTime createdAt; // 作成日時
     protected LocalDateTime updatedAt; // 更新日時
     protected LocalDateTime deletedAt; // 削除日時

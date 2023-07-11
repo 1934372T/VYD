@@ -5,6 +5,8 @@ import java.time.format.DateTimeFormatter;
 
 public class TimeOperator {
 
+    private static final String JP_TIME_FORMAT = "yyyy年MM月dd日";
+
     /*
      * 年月から年度を算出する．
      */
@@ -23,7 +25,7 @@ public class TimeOperator {
      * 日本時間表記に変換する．
      */
     public String japaneseDateConverter(LocalDateTime date) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy年MM月dd日");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(JP_TIME_FORMAT);
         return date.format(formatter);
     }
 }

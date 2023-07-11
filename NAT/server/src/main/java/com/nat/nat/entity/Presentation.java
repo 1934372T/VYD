@@ -12,14 +12,14 @@ import jakarta.persistence.Table;
 @Table(name = "presentations")
 public class Presentation extends CommonEntity {
 
-    private int studentId;        // 学生のID（学籍番号ではない）
-    private int paperId;          // 論文ID（ファイルID）
-    private int slideId;          // スライドID（ファイル）
-    private String title;         // 発表タイトル
-    private LocalDateTime date;   // 発表日
-    private String term;          // 年度
-    private String degree;        // 学位
-    private String note;          // 備考
+    private int             studentId;  // 学生のID（学籍番号ではない）
+    private int             paperId;    // 論文ID（ファイルID）
+    private int             slideId;    // スライドID（ファイル）
+    private String          title;      // 発表タイトル
+    private LocalDateTime   date;       // 発表日
+    private String          term;       // 年度
+    private String          degree;     // 学位
+    private String          note;       // 備考
 
     /*
      * =====================================================

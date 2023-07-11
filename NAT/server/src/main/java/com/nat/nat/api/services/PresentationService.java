@@ -28,16 +28,16 @@ import com.nat.nat.rules.Token;
 
 @Service
 public class PresentationService implements PresentationServiceInterface {
-    private final PaperRepositoryInterface paperRepo;
-    private final SlideRepositoryInterface slideRepo;
-    private final PresentationRepositoryInterface presentationRepo;
-    private final StudentRepositoryInterface studentRepo;
+    private final PaperRepositoryInterface          paperRepo;
+    private final SlideRepositoryInterface          slideRepo;
+    private final PresentationRepositoryInterface   presentationRepo;
+    private final StudentRepositoryInterface        studentRepo;
 
     public PresentationService(PaperRepositoryInterface paperRepo, SlideRepositoryInterface slideRepo, PresentationRepositoryInterface presentationRepo, StudentRepositoryInterface studentRepo) {
-        this.paperRepo = paperRepo;
-        this.slideRepo = slideRepo;
-        this.presentationRepo = presentationRepo;
-        this.studentRepo = studentRepo;
+        this.paperRepo          = paperRepo;
+        this.slideRepo          = slideRepo;
+        this.presentationRepo   = presentationRepo;
+        this.studentRepo        = studentRepo;
     }
 
     @Override

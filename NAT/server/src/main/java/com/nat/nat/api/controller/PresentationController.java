@@ -22,24 +22,29 @@ import com.nat.nat.rules.Consts;
 public class PresentationController {
 
     private final PresentationServiceInterface service;
+    
+    private static final String UPLOAD      = "/upload";
+    private static final String GET_BY_ID   = "/";
+    private static final String LIST        = "/list";
+    private static final String TERMS       = "/terms";
 
     @Autowired
     public PresentationController(PresentationServiceInterface service) {
         this.service = service;
     }
 
-    @PostMapping("/upload")
+    @PostMapping(UPLOAD)
     public ResponseEntity<?> create(@RequestHeader HttpHeaders headers, @RequestParam("paper") MultipartFile paperFile, @RequestParam("slide") MultipartFile slideFile, @RequestParam("title") String title, @RequestParam("date") String date, @RequestParam("note") String note) {
         List<String> authHeaders = headers.get("Authorization");
         return this.service.create(authHeaders, paperFile, slideFile, title, date, note);
     }
 
-    @GetMapping("/")
+    @GetMapping(GET_BY_ID)
     public ResponseEntity<?> getById(@RequestParam("id") int id) {
         return this.service.getById(id);
     }
 
-    @GetMapping("/list")
+    @GetMapping(LIST)
     public ResponseEntity<?> getListWithQuery(@RequestParam("term") String term, @RequestParam("degree") String degree) {
         List<String> queries = new ArrayList<String>();
         if(!term.contains("none")) {
@@ -51,7 +56,7 @@ public class PresentationController {
         return this.service.getListWithQuery(queries);
     }
 
-    @GetMapping("/terms")
+    @GetMapping(TERMS)
     public ResponseEntity<?> getAllTerms() {
         return this.service.getAllTerm();
     }
