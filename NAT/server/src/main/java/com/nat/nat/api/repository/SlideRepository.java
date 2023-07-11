@@ -11,4 +11,5 @@ public class SlideRepository extends CommonRepository<Slide> implements SlideRep
     public SlideRepository() {
         super(Slide.class);
     }
+    
 }

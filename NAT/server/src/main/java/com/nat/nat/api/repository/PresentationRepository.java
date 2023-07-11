@@ -11,4 +11,5 @@ public class PresentationRepository extends CommonRepository<Presentation> imple
     public PresentationRepository() {
         super(Presentation.class);
     }
+    
 }

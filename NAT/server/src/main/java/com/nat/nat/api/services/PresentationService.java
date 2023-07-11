@@ -2,6 +2,7 @@ package com.nat.nat.api.services;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -60,14 +61,19 @@ public class PresentationService implements PresentationServiceInterface {
             Paper createdPaper = this.paperRepo.create(newPaper);
             Slide createdSlide = this.slideRepo.create(newSlide);
 
-            Student student = this.studentRepo.getByStudentId(studentId);
+            List<String> query = new ArrayList<String>(Arrays.asList("studentId="+studentId));
+            List<Student> students = this.studentRepo.getWithQuery(query);
+            
+            if(students.size() != 1) {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
 
-            Presentation newPresentation = new Presentation(student.getId(), title, so.convertIsoToLocalDateTime(date), note);
+            Presentation newPresentation = new Presentation(students.get(0).getId(), title, so.convertIsoToLocalDateTime(date), note);
             newPresentation.setPaperId(createdPaper.getId());
             newPresentation.setSlideId(createdSlide.getId());
             String term = to.extractTermFromDate(so.convertIsoToLocalDateTime(date));
             newPresentation.setTerm(term);
-            newPresentation.setDegree(student.getGrade());
+            newPresentation.setDegree(students.get(0).getGrade());
             Presentation createdPresentation = this.presentationRepo.create(newPresentation);
             return new ResponseEntity<>(createdPresentation, HttpStatus.OK);
         } catch (IOException e) {

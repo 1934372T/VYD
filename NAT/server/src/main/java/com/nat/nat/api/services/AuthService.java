@@ -1,5 +1,7 @@
 package com.nat.nat.api.services;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -43,12 +45,15 @@ public class AuthService implements AuthServiceInterface {
     public ResponseEntity<?> signIn(String studentId, String password) {
         StringOperator so = new StringOperator();
         TokenManager tm = new TokenManager("example", studentId, Permission.valueOf("STUDENT"));
-        Student student = this.studentRepo.getByStudentId(studentId);
-        if(student == null) {
+        
+        List<String> query = new ArrayList<String>(Arrays.asList("studentId="+studentId));
+        List<Student> students = this.studentRepo.getWithQuery(query);
+        
+        if(students.size() != 1 || students.get(0) == null) {
             return new ResponseEntity<>("Student not found", HttpStatus.UNAUTHORIZED);
         }
 
-        if(!so.comparePasswords(password, student.getPassword())) {
+        if(!so.comparePasswords(password, students.get(0).getPassword())) {
             return new ResponseEntity<>("Invalid password", HttpStatus.UNAUTHORIZED);
         }
 

@@ -7,8 +7,9 @@ import com.nat.nat.entity.Paper;
 
 @Repository
 public class PaperRepository extends CommonRepository<Paper> implements PaperRepositoryInterface {
-    
+
     public PaperRepository() {
         super(Paper.class);
     }
+    
 }
