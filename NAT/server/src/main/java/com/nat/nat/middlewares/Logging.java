@@ -16,7 +16,7 @@ public class Logging implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        HttpServletRequest httpRequest = (HttpServletRequest) request;
+        HttpServletRequest  httpRequest  = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
 
         logger.info("Request URL: " + httpRequest.getRequestURL());
