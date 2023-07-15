@@ -1,3 +1,3 @@
-# VYD NAT(Note Automatic Tool)システム 
+# ドキュメント
 
-## [ドキュメント](/docs/README.md)
+## [ドキュメント](docs/README.md)
