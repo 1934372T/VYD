@@ -56,7 +56,7 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  width: window.innerWidth,
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
@@ -64,6 +64,11 @@ const style = {
 };
 
 const ListPage = () => {
+  const dm = new Map<string, string>();
+  dm.set("bachelor", "学士");
+  dm.set("master", "修士");
+  dm.set("doctor", "博士");
+
   const [degree, setDegree] = useState<string>("none");
   const [term, setTerm] = useState<string>("none");
   const [terms, setTerms] = useState<string[]>([]);
@@ -71,13 +76,18 @@ const ListPage = () => {
   const [listData, setListData] = useState<Presentations>([]);
   const [open, setOpen] = useState(false);
 
+  /**
+   * for modal
+   * stateが沢山あって好ましくない．
+   * リファクタリングの必要あり
+   */
+  const [modalTerm, setModalTerm] = useState<string | undefined>("");
+  const [modalTitle, setModalTitle] = useState<string | undefined>("");
+  const [modalDegree, setModalDegree] = useState<string | undefined>("");
+
   const builder = (term: string, degree: string) => {
     var t: string = "";
     var d: string = "";
-    const dm = new Map<string, string>();
-    dm.set("bachelor", "学士");
-    dm.set("master", "修士");
-    dm.set("doctor", "博士");
     if (term === "none") {
       t = "年度未指定 ";
     } else {
@@ -107,12 +117,14 @@ const ListPage = () => {
       .get(`presentation/?id=${id}`)
       .then((res: AxiosResponse) => {
         const { data } = res;
-        console.log(data);
+        setModalTerm(data.term + "年度");
+        setModalTitle(data.title);
+        setModalDegree(dm.get(data.degree));
+        setOpen(true);
       })
       .catch((e: AxiosError) => {
         console.log(e);
       });
-    setOpen(true);
   };
 
   const handleClose = () => setOpen(false);
@@ -210,10 +222,9 @@ const ListPage = () => {
                 aria-describedby="modal-modal-description"
               >
                 <Box sx={style}>
-                  <Title title={"テストモーダル"} />
+                  <Title title={modalTitle} />
                   <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                    Duis mollis, est non commodo luctus, nisi erat porttitor
-                    ligula.
+                    {modalTerm + " " + modalDegree}
                   </Typography>
                 </Box>
               </Modal>
