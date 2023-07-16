@@ -96,20 +96,18 @@ interface BaseItemProps {
 export const BaseItem = (props: BaseItemProps) => {
   const { xs, children } = props;
   return (
-    <>
-      <Grid item xs={xs}>
-        <Paper
-          sx={{
-            p: 2,
-            display: "flex",
-            flexDirection: "column",
-            height: "flex",
-          }}
-        >
-          {children}
-        </Paper>
-      </Grid>
-    </>
+    <Grid item xs={xs}>
+      <Paper
+        sx={{
+          p: 2,
+          display: "flex",
+          flexDirection: "column",
+          height: "flex",
+        }}
+      >
+        {children}
+      </Paper>
+    </Grid>
   );
 };
 
