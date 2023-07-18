@@ -1,0 +1,21 @@
+FROM openjdk:11-jdk
+
+WORKDIR /app
+
+RUN apt-get update && apt-get install -y netcat && rm -rf /var/lib/apt/lists/*
+
+COPY gradlew .
+COPY gradle gradle
+COPY build.gradle .
+COPY settings.gradle .
+COPY src src
+COPY wait-for-it.sh . 
+
+RUN rm /app/src/main/resources/application.prod.properties \
+    && mv /app/src/main/resources/application.dev.properties /app/src/main/resources/application.properties
+RUN chmod u+x gradlew \
+    && ./gradlew build
+
+EXPOSE 55551
+
+ENTRYPOINT ["/app/wait-for-it.sh", "nat-dev-db:3306", "--", "java", "-jar","build/libs/server-0.0.1-SNAPSHOT.war"]

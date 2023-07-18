@@ -22,18 +22,15 @@ services:
     
   nat-prod-db:
     container_name: nat-prod-db
-    image: postgres:latest
+    image: mysql:latest
     environment:
-      - POSTGRES_USER=s3-prod
-      - POSTGRES_PASSWORD=secret
-      - POSTGRES_DB=nat
-      - TZ=Asia/Tokyo
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: nat
+      MYSQL_USER: s3-prod
+      MYSQL_PASSWORD: secret
     volumes:
-      - ~/VYD/NAT/db/prod:/var/lib/postgresql/data
-    deploy:
-      resources:
-        limits:
-          cpus: "2" # 2 CPU cores
-          memory: 2048M # 2 GB of memory
+      - ../db/prod:/var/lib/mysql
+      - ../db/sql/init.prod.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
-      - "5432:5432"
+      - 3306:3306
+    command: --default-authentication-plugin=mysql_native_password
