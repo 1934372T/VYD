@@ -31,7 +31,7 @@ public class Student extends Common {
         this.password = password;
     }
 
-    public Student(int id, String firstName, String lastName, Grade grade, String studentId, String password) {
+    public Student(Long id, String firstName, String lastName, Grade grade, String studentId, String password) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;

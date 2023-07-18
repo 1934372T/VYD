@@ -18,7 +18,7 @@ public class Slide extends Common {
 
     protected Slide() {}
 
-    public Slide(int id) {
+    public Slide(Long id) {
         this.id = id;
     }
 

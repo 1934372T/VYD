@@ -7,5 +7,5 @@ import es3.server.entity.Presentation;
 
 @Repository
 public interface PresentationRepository extends CrudRepository<Presentation, Long>{
-    
+
 }

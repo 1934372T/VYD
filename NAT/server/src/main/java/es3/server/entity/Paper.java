@@ -18,7 +18,7 @@ public class Paper extends Common {
 
     protected Paper() {}
 
-    public Paper(int id) {
+    public Paper(Long id) {
         this.id = id;
     }
 
