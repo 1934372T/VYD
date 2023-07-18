@@ -5,8 +5,15 @@ help:	## コマンド一覧表示
 
 .PHONY: run-dev
 run-dev:	## 開発環境の設定で実行
-	docker-compose -f infra/compose.dev.yml up
+	@docker-compose -f infra/compose.dev.yml up
 
 .PHONY: build-dev
 build-dev:	## 開発環境の設定でビルドして実行
-	docker-compose -f infra/compose.dev.yml up --build
+	@docker-compose -f infra/compose.dev.yml up --build
+
+.PHONY: run-prod
+run-prod:
+	@echo "\033[0;36m...Building client\033[0m"
+	@cd client && yarn build && cd ../
+	@echo "\033[0;36m...Building client\033[0m"
+	@docker-compose -f infra/compose.prod.yml up --build

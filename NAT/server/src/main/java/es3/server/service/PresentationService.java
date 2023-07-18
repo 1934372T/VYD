@@ -7,11 +7,11 @@ import es3.server.repository.PresentationRepository;
 import es3.server.repository.SlideRepository;
 import es3.server.repository.StudentRepository;
 
-@Service
 public interface PresentationService {
     
 }
 
+@Service
 class PresentationServiceImpl implements PresentationService {
     private final PaperRepository          paperRepo;
     private final SlideRepository          slideRepo;

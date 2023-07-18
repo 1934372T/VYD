@@ -5,11 +5,11 @@ import org.springframework.stereotype.Service;
 
 import es3.server.repository.StudentRepository;
 
-@Service
 public interface AuthService {
     
 }
 
+@Service
 class AuthServiceImpl implements AuthService {
     private final StudentRepository studentRepo;
 
