@@ -21,30 +21,3 @@ public class PresentationController {
         this.service = service;
     }
 }
-
-@Data
-class SignInForm {
-    @JsonProperty("student_id")
-    private String studentId;
-
-    @JsonProperty("password")
-    private String password;
-}
-
-@Data
-class SignUpForm {
-    @JsonProperty("student_id")
-    private String studentId; // 学籍番号
-
-    @JsonProperty("password")
-    private String password; // パスワード（ハッシュ化前）
-    
-    @JsonProperty("first_name")
-    private String firstName;
-
-    @JsonProperty("last_name")
-    private String lastName;
-
-    @JsonProperty("grade")
-    private Grade grade;
-}
