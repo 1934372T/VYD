@@ -2,10 +2,7 @@ package es3.server.entity;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -16,27 +13,9 @@ import lombok.EqualsAndHashCode;
 @Entity
 @Table(name = "presentations")
 public class Presentation extends Common {
-    @Column(name = "student_id")
-    private Long studentId;
-
-    @OneToOne
-    @JoinColumn(name = "student_id", insertable = false, updatable = false)
-    private Student student;
-
-    @Column(name = "paper_id")
-    private Long paperId;
-
-    @OneToOne
-    @JoinColumn(name = "paper_id", insertable = false, updatable = false)
-    private Paper paper;
-
-    @Column(name = "slide_id")
-    private Long slideId;
-
-    @OneToOne
-    @JoinColumn(name = "slide_id", insertable = false, updatable = false)
-    private Slide slide;
-
+    private Long            studentId;  // 学生のID (学籍番号ではない)
+    private Long            paperId;    // 論文ID
+    private Long            slideId;    // スライドID
     private String          title;      // 発表タイトル
     private LocalDateTime   date;       // 発表日
     private String          term;       // 年度

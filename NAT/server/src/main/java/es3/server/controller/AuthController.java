@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -17,11 +16,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import es3.server.rules.Consts;
 import es3.server.rules.Grade;
 import es3.server.service.AuthService;
+import lombok.Getter;
+import lombok.Setter;
 
 @RestController
 @RequestMapping(Consts.API_PREFIX+"/auth")
 public class AuthController {
-    private AuthService service;
+    private final AuthService service;
 
     private static final String IS_VALID_TOKEN  = "/is-valid-token";
     private static final String SIGN_IN         = "/signin";
@@ -73,6 +74,8 @@ class SignInForm {
     }
 }
 
+@Getter
+@Setter
 class SignUpForm {
     @JsonProperty("student_id")
     private String studentId; // 学籍番号
@@ -88,32 +91,5 @@ class SignUpForm {
 
     @JsonProperty("grade")
     private Grade grade;
-    
-    public String getStudentId() {
-        return this.studentId;
-    }
-    
-    public void setStudentId(String studentId) {
-        this.studentId = studentId;
-    }
-    
-    public String getPassword() {
-        return this.password;
-    }
-    
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
-    public String getFirstName() {
-        return this.firstName;
-    }
-
-    public String getLastName() {
-        return this.lastName;
-    }
-
-    public Grade getGrade() {
-        return this.grade;
-    }
 }

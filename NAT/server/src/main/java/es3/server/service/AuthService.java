@@ -22,7 +22,7 @@ public interface AuthService {
 
 @Service
 class AuthServiceImpl implements AuthService {
-    private StudentRepository studentRepo;
+    private final StudentRepository studentRepo;
 
     @Autowired
     public AuthServiceImpl(StudentRepository studentRepo) {

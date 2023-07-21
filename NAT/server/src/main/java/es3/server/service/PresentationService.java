@@ -2,6 +2,7 @@ package es3.server.service;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,7 @@ import es3.server.rules.Degree;
 import es3.server.rules.Token;
 
 public interface PresentationService {
+    ResponseEntity<?> register(List<String> headers, MultipartFile paper, MultipartFile slide, String title, String date, String note); 
     ResponseEntity<?> getById(Long id);
     ResponseEntity<?> getAllTerms();
     
@@ -104,8 +106,9 @@ class PresentationServiceImpl implements PresentationService {
     public ResponseEntity<?> getById(Long id) {
         try {
             Optional<Presentation> presentation = this.presentationRepo.findById(id);
+            presentation.orElseThrow();
             return new ResponseEntity<>(presentation, HttpStatus.OK);
-        } catch (IllegalArgumentException e) {
+        } catch (NoSuchElementException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
