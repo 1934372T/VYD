@@ -30,7 +30,7 @@ public class Presentation extends Common {
     @JoinColumn(name = "paper_id", insertable = false, updatable = false)
     private Paper paper;
 
-    @Column(name = "slid_id")
+    @Column(name = "slide_id")
     private Long slideId;
 
     @OneToOne
