@@ -1,5 +1,6 @@
 package es3.server.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import es3.server.repository.PaperRepository;
@@ -18,6 +19,7 @@ class PresentationServiceImpl implements PresentationService {
     private final PresentationRepository   presentationRepo;
     private final StudentRepository        studentRepo;
 
+    @Autowired
     public PresentationServiceImpl(PaperRepository paperRepo, SlideRepository slideRepo, PresentationRepository presentationRepo, StudentRepository studentRepo) {
         this.paperRepo          = paperRepo;
         this.slideRepo          = slideRepo;

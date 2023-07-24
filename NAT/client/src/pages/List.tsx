@@ -23,6 +23,8 @@ import {
 
 import { AxiosError, AxiosResponse } from "axios";
 import { $axios } from "configs/axios";
+import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const header: EnhancedTableHeadType[] = [
   {
@@ -30,6 +32,12 @@ const header: EnhancedTableHeadType[] = [
     numeric: true,
     disablePadding: true,
     label: "ID",
+  },
+  {
+    id: "name",
+    numeric: true,
+    disablePadding: true,
+    label: "氏名",
   },
   {
     id: "title",
@@ -56,7 +64,7 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: window.innerWidth,
+  width: window.innerWidth * 0.5,
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
@@ -64,6 +72,7 @@ const style = {
 };
 
 const ListPage = () => {
+  const nav = useNavigate();
   const dm = new Map<string, string>();
   dm.set("bachelor", "学士");
   dm.set("master", "修士");
@@ -84,6 +93,8 @@ const ListPage = () => {
   const [modalTerm, setModalTerm] = useState<string | undefined>("");
   const [modalTitle, setModalTitle] = useState<string | undefined>("");
   const [modalDegree, setModalDegree] = useState<string | undefined>("");
+  const [modalSlideId, setModalSlideId] = useState<number | undefined>();
+  const [modalPaperId, setModalPaperId] = useState<number | undefined>();
 
   const builder = (term: string, degree: string) => {
     var t: string = "";
@@ -120,6 +131,8 @@ const ListPage = () => {
         setModalTerm(data.term + "年度");
         setModalTitle(data.title);
         setModalDegree(dm.get(data.degree));
+        setModalPaperId(data.paperId);
+        setModalSlideId(data.slideId);
         setOpen(true);
       })
       .catch((e: AxiosError) => {
@@ -226,6 +239,48 @@ const ListPage = () => {
                   <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                     {modalTerm + " " + modalDegree}
                   </Typography>
+                  <Grid container spacing={3} sx={{ mt: 3 }}>
+                    <Grid item xs={6}>
+                      {modalPaperId !== undefined ? (
+                        <>
+                          <Button
+                            variant="contained"
+                            color={"secondary"}
+                            onClick={() => {
+                              nav(
+                                `/preview?file-type=paper&id=${modalPaperId}`
+                              );
+                            }}
+                            fullWidth
+                          >
+                            論文閲覧
+                          </Button>
+                        </>
+                      ) : (
+                        <></>
+                      )}
+                    </Grid>
+                    <Grid item xs={6}>
+                      {modalSlideId !== undefined ? (
+                        <>
+                          <Button
+                            variant="contained"
+                            color={"secondary"}
+                            onClick={() => {
+                              nav(
+                                `/preview?file-type=slide&id=${modalSlideId}`
+                              );
+                            }}
+                            fullWidth
+                          >
+                            発表スライド閲覧
+                          </Button>
+                        </>
+                      ) : (
+                        <></>
+                      )}
+                    </Grid>
+                  </Grid>
                 </Box>
               </Modal>
             }
