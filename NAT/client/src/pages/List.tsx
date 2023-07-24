@@ -32,6 +32,12 @@ const header: EnhancedTableHeadType[] = [
     label: "ID",
   },
   {
+    id: "name",
+    numeric: true,
+    disablePadding: true,
+    label: "氏名",
+  },
+  {
     id: "title",
     numeric: false,
     disablePadding: true,
