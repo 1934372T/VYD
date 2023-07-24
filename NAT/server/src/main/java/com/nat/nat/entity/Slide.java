@@ -1,14 +1,12 @@
 package com.nat.nat.entity;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "slides")
 public class Slide extends CommonEntity {
 
-    @Lob
     private byte[] body;
     private String name;
 

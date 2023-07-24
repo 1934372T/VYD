@@ -58,7 +58,7 @@ public class Student extends CommonEntity {
     }
 
     public String getFullName() {
-        return this.firstName + this.lastName;
+        return this.lastName + " " + this.firstName;
     }
 }
 
