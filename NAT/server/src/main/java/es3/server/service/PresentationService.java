@@ -1,10 +1,11 @@
 package es3.server.service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
+import org.springframework.data.domain.Example;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -23,12 +24,13 @@ import es3.server.repository.SlideRepository;
 import es3.server.repository.StudentRepository;
 import es3.server.rules.Degree;
 import es3.server.rules.Token;
+import lombok.Data;
 
 public interface PresentationService {
     ResponseEntity<?> register(List<String> headers, MultipartFile paper, MultipartFile slide, String title, String date, String note); 
     ResponseEntity<?> getById(Long id);
     ResponseEntity<?> getAllTerms();
-    
+    ResponseEntity<?> getList(String term, String degree);
 }
 
 @Service
@@ -105,16 +107,49 @@ class PresentationServiceImpl implements PresentationService {
      */
     public ResponseEntity<?> getById(Long id) {
         try {
-            Optional<Presentation> presentation = this.presentationRepo.findById(id);
-            presentation.orElseThrow();
+            Presentation presentation = this.presentationRepo.findById(id).orElseThrow();
             return new ResponseEntity<>(presentation, HttpStatus.OK);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
+    public ResponseEntity<?> getList(String term, String degree) {
+        TimeOperator tm = new TimeOperator();
+
+        Presentation presentation = new Presentation();
+        if(!term.contains("none")) {
+            presentation.setTerm(term);
+        }
+        if(!degree.contains("none")) {
+            presentation.setDegree(degree);
+        }
+        List<Presentation> presentations = presentationRepo.findAll(Example.of(presentation));
+
+        List<GetListWithQueryResponse> res = new ArrayList<GetListWithQueryResponse>();
+        for(Presentation p : presentations) {
+            GetListWithQueryResponse value = new GetListWithQueryResponse(p.getId(), p.getTitle(), tm.japaneseDateConverter(p.getDate()));
+            res.add(value);
+        }
+
+        return new ResponseEntity<>(res, HttpStatus.OK);
+    }
+
     public ResponseEntity<?> getAllTerms() {
         List<String> terms = this.presentationRepo.getAllTerms();
         return new ResponseEntity<>(terms, HttpStatus.OK);
+    }
+}
+
+@Data
+class GetListWithQueryResponse {
+    public Long id;
+    public String title;
+    public String date;
+
+    public GetListWithQueryResponse(Long id, String title, String date) {
+        this.id = id;
+        this.title = title;
+        this.date = date;
     }
 }

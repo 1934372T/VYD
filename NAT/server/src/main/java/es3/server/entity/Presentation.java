@@ -22,7 +22,7 @@ public class Presentation extends Common {
     private String          degree;     // 学位
     private String          note;       // 備考
 
-    protected Presentation() {}
+    public Presentation() {}
 
     public Presentation(Long studentId, String title, LocalDateTime date, String note) {
         this.studentId = studentId;
