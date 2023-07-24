@@ -1,7 +1,6 @@
 package es3.server.entity;
 
 import javax.persistence.Entity;
-import javax.persistence.Lob;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -12,7 +11,7 @@ import lombok.EqualsAndHashCode;
 @Entity
 @Table(name = "slides")
 public class Slide extends Common {
-    @Lob
+
     private byte[] body;
     private String name;
 

@@ -5,10 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import org.springframework.data.domain.Example;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import es3.server.entity.Paper;
@@ -39,7 +41,8 @@ class PresentationServiceImpl implements PresentationService {
     private final SlideRepository          slideRepo;
     private final PresentationRepository   presentationRepo;
     private final StudentRepository        studentRepo;
-    
+
+    @Autowired
     public PresentationServiceImpl(PaperRepository paperRepo, SlideRepository slideRepo, PresentationRepository presentationRepo, StudentRepository studentRepo) {
         this.paperRepo          = paperRepo;
         this.slideRepo          = slideRepo;
