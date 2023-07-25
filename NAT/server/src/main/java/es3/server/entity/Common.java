@@ -24,8 +24,9 @@ public class Common {
 
     @PrePersist
     public void onPrePersist() {
-        setCreatedAt(LocalDateTime.now());
-        setUpdatedAt(LocalDateTime.now());
+        LocalDateTime date = LocalDateTime.now();
+        setCreatedAt(date);
+        setUpdatedAt(date);
     }
 
     @PreUpdate

@@ -132,6 +132,8 @@ class PresentationServiceImpl implements PresentationService {
         List<GetListWithQueryResponse> res = new ArrayList<GetListWithQueryResponse>();
         for(Presentation p : presentations) {
             GetListWithQueryResponse value = new GetListWithQueryResponse(p.getId(), p.getTitle(), tm.japaneseDateConverter(p.getDate()));
+            Student student = this.studentRepo.findById(p.getStudentId()).orElseThrow();
+            value.setName(student.getFullName());
             res.add(value);
         }
 
@@ -144,15 +146,32 @@ class PresentationServiceImpl implements PresentationService {
     }
 }
 
+class GetPresentationByIdResponse {
+    public String title;
+    public String term;
+    public String degree;
+    public byte[] slide;
+    public byte[] paper;
+
+    public GetPresentationByIdResponse(String title, String term, String degree, byte[] slide, byte[] paper) {
+        this.title = title;
+        this.term = term;
+        this.degree = degree;
+        this.slide = slide;
+        this.paper = paper;
+    }
+}
+
 @Data
 class GetListWithQueryResponse {
-    public Long id;
+    public Long   id;
+    public String name;
     public String title;
     public String date;
 
     public GetListWithQueryResponse(Long id, String title, String date) {
-        this.id = id;
+        this.id    = id;
         this.title = title;
-        this.date = date;
+        this.date  = date;
     }
 }

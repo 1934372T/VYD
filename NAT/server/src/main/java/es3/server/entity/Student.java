@@ -41,4 +41,8 @@ public class Student extends Common {
         this.studentId = studentId;
         this.password = password;
     }
+
+    public String getFullName() {
+        return this.lastName + " " + this.firstName;
+    }
 }

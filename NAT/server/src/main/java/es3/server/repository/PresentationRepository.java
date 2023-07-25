@@ -10,6 +10,6 @@ import java.util.List;
 
 @Repository
 public interface PresentationRepository extends JpaRepository<Presentation, Long>{
-    @Query("SELECT DISTINCT term FROM Presentation")
+    @Query("SELECT DISTINCT term FROM Presentation order by term desc")
     List<String> getAllTerms();
 }
