@@ -18,6 +18,7 @@ import es3.server.entity.Presentation;
 import es3.server.entity.Slide;
 import es3.server.entity.Student;
 import es3.server.lib.auth.TokenManager;
+import es3.server.lib.utils.PptxToPdfConverter;
 import es3.server.lib.utils.StringOperator;
 import es3.server.lib.utils.TimeOperator;
 import es3.server.repository.PaperRepository;
@@ -72,6 +73,7 @@ class PresentationServiceImpl implements PresentationService {
             byte[] bodyOfPaper = paper.getBytes();
             String nameOfPaper = paper.getName();
             byte[] bodyOfSlide = slide.getBytes();
+            // byte[] bodyOfSlide = PptxToPdfConverter.convert(slide.getBytes());
             String nameOfSlide = slide.getName();
 
             Paper newPaper = new Paper(nameOfPaper, bodyOfPaper);
