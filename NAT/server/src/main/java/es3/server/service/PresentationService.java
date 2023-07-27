@@ -72,8 +72,8 @@ class PresentationServiceImpl implements PresentationService {
         try {
             byte[] bodyOfPaper = paper.getBytes();
             String nameOfPaper = paper.getName();
-            byte[] bodyOfSlide = slide.getBytes();
-            // byte[] bodyOfSlide = PptxToPdfConverter.convert(slide.getBytes());
+            // byte[] bodyOfSlide = slide.getBytes();
+            byte[] bodyOfSlide = PptxToPdfConverter.convert(slide.getBytes());
             String nameOfSlide = slide.getName();
 
             Paper newPaper = new Paper(nameOfPaper, bodyOfPaper);

@@ -16,6 +16,9 @@ RUN rm /app/src/main/resources/application.prod.properties \
 RUN chmod u+x gradlew \
     && ./gradlew build
 
+COPY ./fonts/ /usr/local/share/fonts/truetype/custom/
+RUN fc-cache -f -v
+
 EXPOSE 55551
 
 ENTRYPOINT ["/app/wait-for-it.sh", "nat-dev-db:3306", "--", "java", "-jar","build/libs/server-0.0.1-SNAPSHOT.war"]
