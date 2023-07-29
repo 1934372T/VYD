@@ -6,7 +6,6 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
-import es3.server.rules.Grade;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -14,31 +13,28 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "students")
-public class Student extends Common {
+public class Admin extends Common {
     @Enumerated(EnumType.STRING)
-    private Grade   grade;      // 学年
     private String  firstName;  // 名前
     private String  lastName;   // 名字
     @Column(unique = true)
-    private String  studentId;  // 学籍番号
+    private String  email;      // メールアドレス
     private String  password;   // パスワード
 
-    public Student() {}
+    public Admin() {}
 
-    public Student(String firstName, String lastName, Grade grade, String studentId, String password) {
+    public Admin(String firstName, String lastName, String email, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.grade = grade;
-        this.studentId = studentId;
+        this.email = email;
         this.password = password;
     }
 
-    public Student(Long id, String firstName, String lastName, Grade grade, String studentId, String password) {
+    public Admin(Long id, String firstName, String lastName, String email, String password) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.grade = grade;
-        this.studentId = studentId;
+        this.email = email;
         this.password = password;
     }
 

@@ -24,9 +24,11 @@ import lombok.Setter;
 public class AuthController {
     private final AuthService service;
 
-    private static final String IS_VALID_TOKEN  = "/is-valid-token";
-    private static final String SIGN_IN         = "/signin";
-    private static final String SIGN_UP         = "/signup";
+    private static final String IS_VALID_TOKEN      = "/is-valid-token";
+    private static final String SIGN_IN_FOR_STUDENT = "/student/signin";
+    private static final String SIGN_UP_FOR_STUDENT = "/student/signup";
+    private static final String SIGN_IN_FOR_ADMIN   = "/admin/signin";
+    private static final String SIGN_UP_FOR_ADMIN   = "/admin/signup";
 
     @Autowired
     public AuthController(AuthService service) {
@@ -39,44 +41,66 @@ public class AuthController {
         return this.service.isValidToken(authHeaders);
     }
 
-    @PostMapping(SIGN_IN)
-    public ResponseEntity<?> signIn(@RequestBody SignInForm form) {
+    @PostMapping(SIGN_IN_FOR_STUDENT)
+    public ResponseEntity<?> signInForStudent(@RequestBody SignInFormForStudent form) {
         String studentId = form.getStudentId();
         String password = form.getPassword();
-        return this.service.signIn(studentId, password);
+        return this.service.signInForStudent(studentId, password);
     }
 
-    @PostMapping(SIGN_UP)
-    public ResponseEntity<?> signUp(@RequestBody SignUpForm form) {
+    @PostMapping(SIGN_UP_FOR_STUDENT)
+    public ResponseEntity<?> signUpForStudent(@RequestBody SignUpFormForStudent form) {
         String studentId = form.getStudentId();
         String password = form.getPassword();
         String firstName = form.getFirstName();
         String lastName = form.getLastName();
         Grade grade = form.getGrade();
-        return this.service.signUp(studentId, password, firstName, lastName, grade);
+        return this.service.signUpForStudent(studentId, password, firstName, lastName, grade);
+    }
+
+    @PostMapping(SIGN_IN_FOR_ADMIN)
+    public ResponseEntity<?> signInForAdmin(@RequestBody SignInFormForAdmin form) {
+        String email = form.getEmail();
+        String password = form.getPassword();
+        return this.service.signInForAdmin(email, password);
+    }
+
+    @PostMapping(SIGN_UP_FOR_ADMIN)
+    public ResponseEntity<?> signUpForAdmin(@RequestBody SignUpFormForAdmin form) {
+        String email = form.getEmail();
+        String password = form.getPassword();
+        String firstName = form.getFirstName();
+        String lastName = form.getLastName();
+        return this.service.signUpForAdmin(email, password, firstName, lastName);
     }
 
 }
 
-class SignInForm {
+@Getter
+@Setter
+class SignInFormForStudent {
     @JsonProperty("student_id")
     private String studentId;
 
     @JsonProperty("password")
     private String password;
 
-    public String getStudentId() {
-        return this.studentId;
-    }
-
-    public String getPassword() {
-        return this.password;
-    }
 }
 
 @Getter
 @Setter
-class SignUpForm {
+class SignInFormForAdmin {
+    @JsonProperty("email")
+    private String email;
+
+    @JsonProperty("password")
+    private String password;
+
+}
+
+@Getter
+@Setter
+class SignUpFormForStudent {
     @JsonProperty("student_id")
     private String studentId; // 学籍番号
 
@@ -91,5 +115,22 @@ class SignUpForm {
 
     @JsonProperty("grade")
     private Grade grade;
+
+}
+
+@Getter
+@Setter
+class SignUpFormForAdmin {
+    @JsonProperty("email")
+    private String email; // 学籍番号
+
+    @JsonProperty("password")
+    private String password; // パスワード（ハッシュ化前）
+    
+    @JsonProperty("first_name")
+    private String firstName;
+
+    @JsonProperty("last_name")
+    private String lastName;
 
 }
