@@ -2,8 +2,6 @@ package es3.server.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -14,7 +12,6 @@ import lombok.EqualsAndHashCode;
 @Entity
 @Table(name = "students")
 public class Admin extends Common {
-    @Enumerated(EnumType.STRING)
     private String  firstName;  // 名前
     private String  lastName;   // 名字
     @Column(unique = true)
