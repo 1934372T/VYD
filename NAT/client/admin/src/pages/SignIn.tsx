@@ -22,8 +22,8 @@ const SignInPage = () => {
     setOpen(true);
     const data = new FormData(event.currentTarget);
     axios
-      .post(HOST_URL + "auth/signin", {
-        student_id: data.get("student_id"),
+      .post(HOST_URL + "auth/admin/signin", {
+        email: data.get("email"),
         password: data.get("password"),
       })
       .then((res: AxiosResponse) => {
@@ -49,7 +49,7 @@ const SignInPage = () => {
 
   return (
     <BaseForm
-      formTitle="サインイン"
+      formTitle="サインイン（管理者）"
       buttonTitle="送信"
       handleSubmit={handleSubmit}
       mode="signin"
@@ -58,10 +58,10 @@ const SignInPage = () => {
         margin="normal"
         required
         fullWidth
-        id="student_id"
-        label="学籍番号"
-        name="student_id"
-        autoComplete="student_id"
+        id="email"
+        label="メールアドレス"
+        name="email"
+        autoComplete="email"
         autoFocus
       />
       <TextField

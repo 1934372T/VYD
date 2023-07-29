@@ -36,7 +36,7 @@ const SignUpPage = () => {
     setOpen(true);
     const data = new FormData(event.currentTarget);
     axios
-      .post(HOST_URL + "auth/signup", {
+      .post(HOST_URL + "auth/student/signup", {
         student_id: data.get("student_id"),
         password: data.get("password"),
         first_name: data.get("first_name"),
