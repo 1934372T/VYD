@@ -9,15 +9,27 @@ services:
     ports:
       - "55551:55551"
     
-  nat-dev-client:
-    container_name: nat-dev-client
+  nat-dev-client-student:
+    container_name: nat-dev-client-student
     build:
-      context: ../client
+      context: ../client/student
       dockerfile: Dockerfile.dev
     ports:
       - '3331:3331'
     volumes:
-      - ../client:/app
+      - ../client/student:/app
+      - /app/node_modules
+    command: ["yarn", "start"]
+
+  nat-dev-client-admin:
+    container_name: nat-dev-client-admin
+    build:
+      context: ../client/admin
+      dockerfile: Dockerfile.dev
+    ports:
+      - '4441:4441'
+    volumes:
+      - ../client/admin:/app
       - /app/node_modules
     command: ["yarn", "start"]
 

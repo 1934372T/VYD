@@ -1,8 +1,6 @@
 package es3.server.lib.utils;
 
 import java.io.ByteArrayInputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 
 import org.apache.commons.io.output.ByteArrayOutputStream;
