@@ -5,7 +5,7 @@ import {
   //   EnhancedTableHeadType,
   Title,
 } from "components/views/ui";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { $axios } from "configs/axios";
 import { AxiosError, AxiosResponse } from "axios";
 // import { SelectChangeEvent } from "@mui/material";
@@ -46,10 +46,10 @@ import { AxiosError, AxiosResponse } from "axios";
 
 const StudentListPage = () => {
   //   const nav = useNavigate();
-  const dm = new Map<string, string>();
-  dm.set("bachelor", "学士");
-  dm.set("master", "修士");
-  dm.set("doctor", "博士");
+  //   const dm = new Map<string, string>();
+  //   dm.set("bachelor", "学士");
+  //   dm.set("master", "修士");
+  //   dm.set("doctor", "博士");
 
   //   const [grade, setGrade] = useState<string>("none");
 
