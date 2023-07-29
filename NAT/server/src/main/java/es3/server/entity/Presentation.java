@@ -13,18 +13,18 @@ import lombok.EqualsAndHashCode;
 @Entity
 @Table(name = "presentations")
 public class Presentation extends Common {
-    private int             studentId;  // 学生のID（学籍番号ではない）
-    private int             paperId;    // 論文ID（ファイルID）
-    private int             slideId;    // スライドID（ファイル）
+    private Long            studentId;  // 学生のID (学籍番号ではない)
+    private Long            paperId;    // 論文ID
+    private Long            slideId;    // スライドID
     private String          title;      // 発表タイトル
     private LocalDateTime   date;       // 発表日
     private String          term;       // 年度
     private String          degree;     // 学位
     private String          note;       // 備考
 
-    protected Presentation() {}
+    public Presentation() {}
 
-    public Presentation(int studentId, String title, LocalDateTime date, String note) {
+    public Presentation(Long studentId, String title, LocalDateTime date, String note) {
         this.studentId = studentId;
         this.title = title;
         this.date = date;

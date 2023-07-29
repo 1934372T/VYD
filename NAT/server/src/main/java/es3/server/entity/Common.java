@@ -6,6 +6,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.PrePersist;
+import javax.persistence.PreRemove;
+import javax.persistence.PreUpdate;
 
 import lombok.Data;
 
@@ -14,8 +17,25 @@ import lombok.Data;
 public class Common {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected int           id;        // ID
+    protected Long          id;        // ID
     protected LocalDateTime createdAt; // 作成日時
     protected LocalDateTime updatedAt; // 更新日時
     protected LocalDateTime deletedAt; // 削除日時
+
+    @PrePersist
+    public void onPrePersist() {
+        LocalDateTime date = LocalDateTime.now();
+        setCreatedAt(date);
+        setUpdatedAt(date);
+    }
+
+    @PreUpdate
+    public void onPreUpdate() {
+        setUpdatedAt(LocalDateTime.now());
+    }
+
+    @PreRemove
+    public void onPreRemove() {
+        setDeletedAt(LocalDateTime.now());
+    }
 }

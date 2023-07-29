@@ -1,50 +1,55 @@
 package es3.server.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import es3.server.rules.Consts;
-import es3.server.rules.Grade;
 import es3.server.service.PresentationService;
-import lombok.Data;
 
 @RestController
 @RequestMapping(Consts.API_PREFIX+"/presentation")
 public class PresentationController {
     private final PresentationService service;
 
+    private static final String UPLOAD      = "/upload";
+    private static final String GET_BY_ID   = "/";
+    private static final String LIST        = "/list";
+    private static final String TERMS       = "/terms";
+
     @Autowired
     public PresentationController(PresentationService service) {
         this.service = service;
     }
-}
 
-@Data
-class SignInForm {
-    @JsonProperty("student_id")
-    private String studentId;
+    @PostMapping(UPLOAD)
+    public ResponseEntity<?> create(@RequestHeader HttpHeaders headers, @RequestPart("paper") MultipartFile paperFile, @RequestParam("slide") MultipartFile slideFile, @RequestParam("title") String title, @RequestParam("date") String date, @RequestParam("note") String note) {
+        List<String> authHeaders = headers.get("Authorization");
+        return this.service.register(authHeaders, paperFile, slideFile, title, date, note);
+    }
 
-    @JsonProperty("password")
-    private String password;
-}
+    @GetMapping(GET_BY_ID)
+    public ResponseEntity<?> getById(@RequestParam("id") Long id) {
+        return this.service.getById(id);
+    }
 
-@Data
-class SignUpForm {
-    @JsonProperty("student_id")
-    private String studentId; // 学籍番号
+    @GetMapping(LIST)
+    public ResponseEntity<?> getListWithQuery(@RequestParam("term") String term, @RequestParam("degree") String degree) {
+        return this.service.getList(term, degree);
+    }
 
-    @JsonProperty("password")
-    private String password; // パスワード（ハッシュ化前）
-    
-    @JsonProperty("first_name")
-    private String firstName;
-
-    @JsonProperty("last_name")
-    private String lastName;
-
-    @JsonProperty("grade")
-    private Grade grade;
+    @GetMapping(TERMS)
+    public ResponseEntity<?> getAllTerms() {
+        return this.service.getAllTerms();
+    }
 }

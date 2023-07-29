@@ -1,5 +1,6 @@
 package es3.server.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -18,6 +19,7 @@ public class Student extends Common {
     private Grade   grade;      // 学年
     private String  firstName;  // 名前
     private String  lastName;   // 名字
+    @Column(unique = true)
     private String  studentId;  // 学籍番号
     private String  password;   // パスワード
 
@@ -31,12 +33,16 @@ public class Student extends Common {
         this.password = password;
     }
 
-    public Student(int id, String firstName, String lastName, Grade grade, String studentId, String password) {
+    public Student(Long id, String firstName, String lastName, Grade grade, String studentId, String password) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.grade = grade;
         this.studentId = studentId;
         this.password = password;
+    }
+
+    public String getFullName() {
+        return this.lastName + " " + this.firstName;
     }
 }

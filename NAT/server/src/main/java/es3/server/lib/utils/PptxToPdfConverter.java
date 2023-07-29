@@ -1,9 +1,11 @@
 package es3.server.lib.utils;
 
+import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
@@ -18,8 +20,11 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 public class PptxToPdfConverter {
-    public void convert(String pptxPath, String pdfPath) throws IOException {
-        XMLSlideShow    ppt = new XMLSlideShow(new FileInputStream(pptxPath));
+    public static byte[] convert(byte[] pptxData) throws IOException {
+        ByteArrayInputStream pptxStream = new ByteArrayInputStream(pptxData);
+        XMLSlideShow    ppt = new XMLSlideShow(pptxStream);
+        pptxStream.close();
+
         PDDocument      pdf = new PDDocument();
 
         for (XSLFSlide slide : ppt.getSlides()) {
@@ -40,9 +45,15 @@ public class PptxToPdfConverter {
             contentStream.close();
         }
 
-        pdf.save(new FileOutputStream(pdfPath));
-
-        ppt.close();
+        ByteArrayOutputStream pdfOutput = new ByteArrayOutputStream();
+        pdf.save(pdfOutput);
         pdf.close();
+        ppt.close();
+
+        byte[] pdfByteArray = pdfOutput.toByteArray();
+        pdfOutput.close();
+
+        return pdfByteArray;
+
     }
 }
