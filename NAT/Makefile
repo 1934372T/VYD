@@ -13,7 +13,9 @@ build-dev:	## 開発環境の設定でビルドして実行
 
 .PHONY: run-prod
 run-prod:
-	@echo "\033[0;36m...Building client\033[0m"
-	@cd client && yarn build && cd ../
-	@echo "\033[0;36m...Building client\033[0m"
+	@echo "\033[0;36m...Building client for student\033[0m"
+	@cd client/student && yarn build && cd ../..
+	@echo "\033[0;36m...Building client for admin\033[0m"
+	@cd client/admin && yarn build && cd ../..
+	@echo "\033[0;36m...Building containers\033[0m"
 	@docker-compose -f infra/compose.prod.yml up --build
