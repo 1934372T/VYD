@@ -52,7 +52,6 @@ const SignInPage = () => {
       formTitle="サインイン"
       buttonTitle="送信"
       handleSubmit={handleSubmit}
-      mode="signin"
     >
       <TextField
         margin="normal"

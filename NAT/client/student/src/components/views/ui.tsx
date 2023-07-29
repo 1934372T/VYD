@@ -21,7 +21,6 @@ import {
   CardContent,
   CircularProgress,
   CssBaseline,
-  Link,
   TablePagination,
   ThemeProvider,
   createTheme,
@@ -315,11 +314,10 @@ interface BaseFormProps {
   buttonTitle: string;
   handleSubmit: (v?: any) => void;
   children?: ReactNode;
-  mode: string;
 }
 
 export const BaseForm = (props: BaseFormProps) => {
-  const { formTitle, buttonTitle, handleSubmit, children, mode } = props;
+  const { formTitle, buttonTitle, handleSubmit, children } = props;
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -350,7 +348,7 @@ export const BaseForm = (props: BaseFormProps) => {
             >
               {buttonTitle}
             </Button>
-            {mode === "signin" ? (
+            {/* {mode === "signin" ? (
               <>
                 <Grid container>
                   <Grid item>
@@ -376,7 +374,7 @@ export const BaseForm = (props: BaseFormProps) => {
                   <></>
                 )}
               </>
-            )}
+            )} */}
           </Box>
         </Box>
       </Container>

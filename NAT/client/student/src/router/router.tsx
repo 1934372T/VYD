@@ -4,7 +4,6 @@ import Home from "pages/Home";
 import UploadPage from "pages/Uploader";
 import ListPage from "pages/List";
 import SignInPage from "pages/SignIn";
-import SignUpPage from "pages/SignUp";
 import Preview from "pages/Preview";
 
 const Router = () => {
@@ -14,7 +13,6 @@ const Router = () => {
       <Route path="/upload" element={<UploadPage />} />
       <Route path="/list" element={<ListPage />} />
       <Route path="/signin" element={<SignInPage />} />
-      <Route path="/signup" element={<SignUpPage />} />
       <Route path="/preview" element={<Preview />} />
     </Routes>
   );
