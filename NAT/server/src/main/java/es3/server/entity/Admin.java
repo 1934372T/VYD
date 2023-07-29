@@ -10,7 +10,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name = "students")
+@Table(name = "admins")
 public class Admin extends Common {
     private String  firstName;  // 名前
     private String  lastName;   // 名字
