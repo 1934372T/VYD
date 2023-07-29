@@ -68,12 +68,6 @@ const CreateStudentPage = () => {
     <Template name={"学生登録"}>
       <BaseContainer>
         <BaseItem xs={12}>
-          {/* <BaseForm
-            formTitle="サインアップ"
-            buttonTitle="作成"
-            handleSubmit={handleSubmit}
-            mode="signup"
-          > */}
           <form onSubmit={handleSubmit}>
             <Grid container spacing={3}>
               <Grid item xs={4}>
@@ -183,13 +177,13 @@ const CreateStudentPage = () => {
                     component="h2"
                     align="center"
                   >
-                    サインアップ失敗
+                    登録失敗
                   </Typography>
                   <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                     {errorMsg}
                   </Typography>
                   <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                    再度サインアップしてください．
+                    再度登録してください．
                   </Typography>
                   <Grid container>
                     <Grid item xs={12} sx={{ mt: 2 }}>
@@ -233,7 +227,6 @@ const CreateStudentPage = () => {
               )}
             </Box>
           </Modal>
-          {/* </BaseForm> */}
         </BaseItem>
       </BaseContainer>
     </Template>
