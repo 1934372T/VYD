@@ -1,0 +1,47 @@
+version: '3.9'
+
+services:
+  nat-dev-server:
+    container_name: nat-dev-server
+    build:
+      context: ../server
+      dockerfile: Dockerfile.dev
+    ports:
+      - "55551:55551"
+    
+  nat-dev-client-student:
+    container_name: nat-dev-client-student
+    build:
+      context: ../client/student
+      dockerfile: Dockerfile.dev
+    ports:
+      - '3331:3331'
+    volumes:
+      - ../client/student:/app
+      - /app/node_modules
+    command: ["yarn", "start"]
+
+  nat-dev-client-admin:
+    container_name: nat-dev-client-admin
+    build:
+      context: ../client/admin
+      dockerfile: Dockerfile.dev
+    ports:
+      - '4441:4441'
+    volumes:
+      - ../client/admin:/app
+      - /app/node_modules
+    command: ["yarn", "start"]
+
+  nat-dev-db:
+    container_name: nat-dev-db
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: nat
+      MYSQL_USER: s3-dev
+      MYSQL_PASSWORD: secret
+    volumes:
+      - ../db/dev:/var/lib/mysql
+      - ../db/sql/init.dev.sql:/docker-entrypoint-initdb.d/init.sql
+    command: --default-authentication-plugin=mysql_native_password
